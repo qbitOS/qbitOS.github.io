@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="qbitOS.ai root landing" />
+  <title>qbitOS.ai</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      background: radial-gradient(1000px 600px at 15% -20%, #284674, #0b1220 52%, #050810);
+      color: #dbeafe;
+    }
+    .card {
+      width: min(900px, 100%);
+      border: 1px solid #2e4566;
+      border-radius: 16px;
+      background: rgba(12, 20, 33, 0.86);
+      box-shadow: 0 10px 36px rgba(0, 0, 0, 0.4);
+      padding: 20px 18px 16px;
+    }
+    .tag {
+      display: inline-block;
+      border: 1px solid #3a5f8c;
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #9dc4f3;
+      background: rgba(34, 65, 103, 0.34);
+    }
+    h1 { margin: 10px 0 8px; font-size: clamp(26px, 4.5vw, 38px); letter-spacing: .04em; }
+    p { margin: 0 0 10px; color: #b6cde6; line-height: 1.55; font-size: 13px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    a.chip {
+      text-decoration: none;
+      color: #e2efff;
+      border: 1px solid #2f7bdb66;
+      background: rgba(47, 123, 219, 0.24);
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: .04em;
+      padding: 5px 11px;
+      white-space: nowrap;
+    }
+    a.chip:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <main class="card" aria-label="qbitOS.ai root landing">
+    <span class="tag">qbitOS.ai</span>
+    <h1>Root Landing</h1>
+    <p>Official root entry point for qbitOS.ai.</p>
+    <p>Program surfaces are split by lane. Public pages expose only high-level information.</p>
+    <div class="chips">
+      <a class="chip" href="https://qbitos.github.io/uvspeed/">Program Surface</a>
+      <a class="chip" href="https://github.com/qbitOS">GitHub Organization</a>
+      <a class="chip" href="https://github.com/orgs/qbitOS/projects">Projects</a>
+      <a class="chip" href="https://github.com/orgs/qbitOS/packages">Packages</a>
+    </div>
+  </main>
+</body>
+</html>
