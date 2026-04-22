@@ -1,0 +1,14 @@
+{
+  "name": "ugrad.ai | Quantum-Centric Communication Cycle",
+  "short_name": "ugrad launch",
+  "description": "Launch paper — UGRAD.AI x QBITOS.AI (GitHub Pages).",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#ece3d3",
+  "theme_color": "#e9dfcd",
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  }
+}

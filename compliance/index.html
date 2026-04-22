@@ -1,66 +1,3490 @@
+<!-- beyondBINARY quantum-prefixed | uvspeed | {n, +1, -n, +0, 0, -1, +n, +2, -0, +3, 1} -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>qbitOS Compliance</title>
-  <meta name="description" content="qbitOS canonical compliance lane" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#e9dfcd" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>ugrad.ai | Quantum-Centric Communication Cycle Research</title>
+  <link rel="manifest" href="../manifest.webmanifest" />
+  <script src="../quantum-prefixes.js"></script>
   <style>
-    :root { color-scheme: dark; }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      padding: 20px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      background: radial-gradient(1000px 600px at 15% -20%, #284674, #0b1220 52%, #050810);
-      color: #dbeafe;
-      display: grid;
-      place-items: center;
+    :root{
+      --bg:#ece3d3;
+      --bg2:#f2e9d9;
+      --ink:#3f3528;
+      --muted:#6d6254;
+      --accent:#ad8550;
+      --cyan:#9aa293;
+      --edge:transparent;
+      --card:#f6eedf;
+      --dot:rgba(150,122,85,.18);
+      --mono:"SF Mono","Cascadia Code","Menlo",monospace;
+      --sans:"Inter","Avenir Next","Segoe UI",system-ui,sans-serif;
+      --hero-badge-max-width:272px;
+      --hero-badge-padding-y:8px;
+      --hero-badge-padding-x:10px;
+      --hero-badge-gap:8px;
+      --hero-badge-radius:0px;
+      --hero-badge-border:2px;
+      --hero-badge-font-size:54px;
+      --hero-badge-line-width:40px;
+      --hero-badge-line-thickness:3px;
+      --hero-badge-orb-size:10px;
+      --hero-badge-caption-size:12px;
+      --hero-badge-caption-spacing:.005em;
     }
-    .card {
-      width: min(980px, 100%);
-      border: 1px solid #2e4566;
-      border-radius: 16px;
-      background: rgba(12, 20, 33, 0.86);
-      box-shadow: 0 10px 36px rgba(0, 0, 0, 0.4);
-      padding: 20px 18px 16px;
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);}
+    body{
+      min-height:100vh;
+      background:linear-gradient(180deg, #f4f7fc 0%, #eef3fb 58%, #e8eef8 100%);
+      position:relative;
+      overflow-x:hidden;
+      isolation:isolate;
     }
-    h1 { margin: 8px 0 10px; font-size: clamp(24px, 4vw, 36px); letter-spacing: .04em; }
-    p { margin: 0 0 10px; color: #b6cde6; line-height: 1.55; font-size: 13px; }
-    code {
-      background: #101a2a;
-      border: 1px solid #2d4668;
-      color: #d2e7ff;
-      border-radius: 8px;
-      padding: 2px 8px;
+    body::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:.48;
+      background-image:
+        radial-gradient(72% 64% at 14% 20%, rgba(49,171,255,.34) 0%, rgba(49,171,255,.16) 35%, rgba(49,171,255,0) 72%),
+        radial-gradient(68% 62% at 86% 18%, rgba(154,126,255,.44) 0%, rgba(154,126,255,.2) 36%, rgba(154,126,255,0) 74%),
+        radial-gradient(80% 74% at 56% 80%, rgba(130,196,255,.24) 0%, rgba(130,196,255,.1) 38%, rgba(130,196,255,0) 78%);
+      background-repeat:no-repeat;
+      background-size:180% 120%, 170% 120%, 200% 140%;
+      background-position:8% 6%, 94% 10%, 50% 96%;
+      animation:bg-shift-main 32s ease-in-out infinite alternate;
+      will-change:background-position, transform;
+      z-index:0;
     }
-    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-    a.chip {
-      text-decoration: none;
-      color: #e2efff;
-      border: 1px solid #2f7bdb66;
-      background: rgba(47, 123, 219, 0.24);
-      border-radius: 999px;
-      font-size: 11px;
-      letter-spacing: .04em;
-      padding: 5px 11px;
-      white-space: nowrap;
+    body::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:.34;
+      background-image:
+        radial-gradient(64% 56% at 24% 78%, rgba(61,185,255,.22) 0%, rgba(61,185,255,.1) 38%, rgba(61,185,255,0) 76%),
+        radial-gradient(60% 56% at 88% 70%, rgba(172,138,255,.36) 0%, rgba(172,138,255,.16) 34%, rgba(172,138,255,0) 72%);
+      background-position:10% 80%, 90% 18%;
+      background-repeat:no-repeat;
+      background-size:170% 120%, 180% 130%;
+      animation:bg-shift-accent 40s ease-in-out infinite alternate-reverse;
+      will-change:background-position, transform;
+      z-index:0;
     }
-    a.chip:hover { text-decoration: underline; }
+    @keyframes bg-shift-main{
+      0%{
+        transform:translate3d(0,0,0) scale(1);
+        background-position:8% 6%, 94% 10%, 50% 96%;
+      }
+      50%{
+        transform:translate3d(-1.2%,1.4%,0) scale(1.02);
+        background-position:6% 9%, 97% 12%, 52% 93%;
+      }
+      100%{
+        transform:translate3d(1.6%,-1.4%,0) scale(1.03);
+        background-position:10% 4%, 92% 8%, 48% 98%;
+      }
+    }
+    @keyframes bg-shift-accent{
+      0%{
+        transform:translate3d(0,0,0) scale(1);
+        background-position:10% 80%, 90% 18%;
+      }
+      100%{
+        transform:translate3d(-1.8%,1.5%,0) scale(1.04);
+        background-position:7% 83%, 93% 15%;
+      }
+    }
+    .page{max-width:1180px;margin:0 auto;padding:24px 22px 56px;position:relative;z-index:1;}
+    .page > *{position:relative;z-index:1;}
+    .reactive-dots{
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:min(72vh,840px);
+      width:100%;
+      z-index:0;
+      pointer-events:none;
+      opacity:.96;
+      filter:contrast(1.14) brightness(1.1);
+      mask-image:linear-gradient(180deg, rgba(0,0,0,.98) 0%, rgba(0,0,0,.94) 56%, rgba(0,0,0,.42) 78%, rgba(0,0,0,0) 100%);
+      -webkit-mask-image:linear-gradient(180deg, rgba(0,0,0,.98) 0%, rgba(0,0,0,.94) 56%, rgba(0,0,0,.42) 78%, rgba(0,0,0,0) 100%);
+    }
+    .hero{
+      box-sizing:content-box;
+      border:none;
+      border-radius:12px;
+      background:none !important;
+      background-color:transparent !important;
+      background-image:none !important;
+      padding:24px 22px;
+      box-shadow:none;
+      text-align:center;
+    }
+    .top-menu{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:8px 12px;
+      margin:0 calc(50% - 50vw) 10px;
+      width:auto;
+      border:1px solid rgba(198,206,222,.85);
+      border-radius:0;
+      background:#ffffff;
+      box-shadow:0 1px 0 rgba(16,24,40,.03);
+      position:sticky;
+      top:0;
+      z-index:40;
+    }
+    .top-menu .brand{
+      color:#3f3223;
+      font:700 10px/1 var(--mono);
+      letter-spacing:.07em;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+    .top-menu .items{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      gap:6px;
+    }
+    .top-menu .items a{
+      color:#4f678d;
+      text-decoration:none;
+      font:700 10px/1 var(--mono);
+      letter-spacing:.03em;
+      text-transform:uppercase;
+      border:1px solid rgba(122,162,219,.35);
+      border-radius:999px;
+      padding:5px 8px;
+      background:rgba(246,250,255,.92);
+    }
+    .top-menu .items a:hover{
+      background:rgba(235,244,255,.96);
+      border-color:rgba(94,142,214,.55);
+    }
+    main.page > header.hero{
+      background:transparent !important;
+      background-color:transparent !important;
+      background-image:none !important;
+    }
+    .eyebrow{
+      font:700 12px/1 var(--mono);
+      letter-spacing:.18em;
+      color:#9c7441;
+      margin:0 0 8px 0;
+      text-transform:uppercase;
+    }
+    .hero-formula-wrap{
+      width:min(100%, var(--hero-badge-max-width));
+      margin:0 auto 6px auto;
+      text-align:center;
+    }
+    .hero-formula-box{
+      width:100%;
+      background:transparent;
+      box-shadow:none;
+    }
+    .hero-formula-svg{
+      display:block;
+      width:100%;
+      height:auto;
+      overflow:visible;
+    }
+    .hero-eq{
+      margin:0 0 8px 0;
+      color:#4a3a28;
+      display:inline-block;
+      position:relative;
+      padding:4px 14px;
+      font:700 24px/1.12 "Times New Roman", Georgia, serif;
+      letter-spacing:.01em;
+      text-shadow:0 1px 0 rgba(255,255,255,.88), 0 0 8px rgba(255,255,255,.36);
+    }
+    .hero-eq::before{
+      content:"";
+      position:absolute;
+      inset:-10px -20px;
+      border-radius:999px;
+      background:radial-gradient(circle at 50% 50%,
+        rgba(255,255,255,.88) 0%,
+        rgba(255,255,255,.68) 36%,
+        rgba(255,255,255,.28) 68%,
+        rgba(255,255,255,0) 100%);
+      z-index:-1;
+      filter:blur(1.4px);
+      pointer-events:none;
+    }
+    .title{
+      margin:0;
+      font-weight:700;
+      letter-spacing:.01em;
+      line-height:1.1;
+      font-size:clamp(25px,4vw,42px);
+      color:#443624;
+    }
+    .subtitle{
+      margin:10px 0 0 0;
+      color:var(--muted);
+      font-size:14px;
+      max-width:860px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .brand-row{
+      margin-top:14px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      font:600 11px/1 var(--mono);
+      color:#7f715e;
+      justify-content:center;
+    }
+    .pill{
+      border:none;
+      border-radius:10px;
+      padding:6px 10px;
+      background:transparent;
+    }
+    .layout{
+      margin-top:20px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 320px;
+      gap:24px;
+      align-items:start;
+    }
+    .paper{
+      border:none;
+      border-radius:12px;
+      background:transparent;
+      padding:16px 16px 18px;
+    }
+    .paper h2{
+      margin:0 0 10px 0;
+      color:#3f3223;
+      letter-spacing:.02em;
+      font-size:26px;
+    }
+    .paper h3{
+      margin:24px 0 10px 0;
+      padding-top:14px;
+      border-top:1px solid rgba(157,121,76,.24);
+      color:#4c3f31;
+      font-size:18px;
+    }
+    .paper p{
+      margin:0 0 12px 0;
+      color:#4f4539;
+      text-align:left;
+      line-height:1.72;
+      font-size:15px;
+    }
+    .exec{
+      margin:12px 0 16px;
+      padding:12px 14px;
+      border:1px solid rgba(157,121,76,.25);
+      border-radius:12px;
+      background:rgba(255,255,255,.36);
+    }
+    .exec .kicker{
+      margin:0 0 8px 0;
+      color:#7d6140;
+      font:700 11px/1 var(--mono);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .exec .exec-eq-top{
+      margin:0 0 8px 0;
+      color:#5e4a33;
+      font:600 13px/1.35 var(--mono);
+      letter-spacing:.01em;
+      display:inline-block;
+      background:rgba(255,255,255,.94);
+      border-radius:6px;
+      padding:2px 6px;
+      max-width:100%;
+      overflow-wrap:anywhere;
+    }
+    .exec .exec-eq-link{
+      margin:0 0 8px 0;
+      width:fit-content;
+      max-width:100%;
+      color:#5a6f8f;
+      font:700 10px/1.25 var(--mono);
+      letter-spacing:.03em;
+      background:rgba(245,249,255,.92);
+      border:1px solid rgba(122,162,219,.32);
+      border-radius:6px;
+      padding:2px 6px;
+      overflow-wrap:anywhere;
+    }
+    .exec ul{
+      margin:0;
+      padding-left:18px;
+      display:grid;
+      gap:6px;
+    }
+    .exec li{
+      color:#4d4234;
+      font-size:14px;
+      line-height:1.45;
+    }
+    .exec.eq-walk{
+      margin:8px 0 14px;
+      padding:10px 12px;
+      background:rgba(255,255,255,.42);
+    }
+    .exec.eq-walk .kicker{
+      letter-spacing:.06em;
+      margin-bottom:7px;
+    }
+    .exec.eq-walk ul{
+      gap:5px;
+    }
+    .exec.eq-walk li{
+      font-size:13px;
+      line-height:1.4;
+    }
+    .eq{
+      border:none;
+      background:transparent;
+      border-radius:10px;
+      padding:8px 10px;
+      margin:8px 0;
+    }
+    .eq .sym{
+      color:#4c3e2f;
+      font:700 13px/1.45 var(--mono);
+      display:block;
+      width:fit-content;
+      max-width:100%;
+      background:rgba(255,255,255,.94);
+      border-radius:6px;
+      padding:2px 6px;
+      overflow-wrap:anywhere;
+    }
+    .eq .plain{
+      color:#7a6f62;
+      font:600 11px/1.35 var(--mono);
+      display:block;
+      margin-top:4px;
+      width:fit-content;
+      max-width:100%;
+      background:rgba(238,241,246,.96);
+      border-radius:6px;
+      padding:2px 6px;
+      overflow-wrap:anywhere;
+    }
+    .eq .eq-link{
+      display:block;
+      width:fit-content;
+      max-width:100%;
+      margin-top:5px;
+      color:#5a6f8f;
+      font:700 10px/1.25 var(--mono);
+      letter-spacing:.02em;
+      background:rgba(245,249,255,.92);
+      border:1px solid rgba(122,162,219,.32);
+      border-radius:6px;
+      padding:2px 6px;
+      overflow-wrap:anywhere;
+    }
+    .eq-insight{
+      margin-top:7px;
+      border:1px solid rgba(122,162,219,.30);
+      border-radius:10px;
+      background:rgba(245,249,255,.58);
+      padding:8px;
+    }
+    .eq-insight h2{
+      margin:0 0 6px 0;
+      color:#2f4f79;
+      font:700 20px/1.08 var(--sans);
+      letter-spacing:.01em;
+    }
+    .eq-insight-grid{
+      display:grid;
+      grid-template-columns:220px 1fr;
+      gap:10px;
+      align-items:start;
+    }
+    .eq-mini-svg{
+      width:100%;
+      height:108px;
+      border:1px solid rgba(122,162,219,.30);
+      border-radius:8px;
+      background:rgba(255,255,255,.88);
+      display:block;
+    }
+    .eq-mini-img{
+      width:100%;
+      height:108px;
+      border:1px solid rgba(122,162,219,.30);
+      border-radius:8px;
+      background:rgba(255,255,255,.96);
+      display:block;
+      object-fit:cover;
+      object-position:center;
+      padding:0;
+    }
+    .eq-mini-canvas{
+      width:100%;
+      height:108px;
+      border:1px solid rgba(122,162,219,.30);
+      border-radius:8px;
+      background:linear-gradient(180deg, rgba(248,252,255,.96), rgba(234,244,255,.9));
+      display:block;
+    }
+    .eq-insight p{
+      margin:0;
+      color:#4a5d78;
+      font-size:12px;
+      line-height:1.45;
+    }
+    .eq-insight p strong{
+      color:#32537d;
+      font-weight:700;
+    }
+    .eq .sym.sym-spot{
+      color:#3f2f1e;
+      font:700 14px/1.45 "Times New Roman", Georgia, serif;
+      letter-spacing:.01em;
+      background:rgba(255,255,255,.96);
+      border-radius:6px;
+      padding:2px 6px;
+      width:fit-content;
+    }
+    .eq-graph-card p code,
+    .exec.eq-walk li code{
+      background:rgba(255,255,255,.96);
+      border-radius:4px;
+      padding:0 4px;
+    }
+    .diag{
+      margin:12px 0 16px;
+      padding:12px 14px;
+      border:1px solid rgba(86,129,196,.22);
+      border-radius:12px;
+      background:transparent;
+    }
+    .diag .kicker{
+      margin:0 0 10px 0;
+      color:#3f5f8e;
+      font:700 11px/1 var(--mono);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .diag .diag-toolbar{
+      display:flex;
+      gap:8px;
+      margin-bottom:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .diag .diag-tab{
+      border:1px solid rgba(86,129,196,.42);
+      background:rgba(255,255,255,.72);
+      color:#33557f;
+      border-radius:999px;
+      padding:5px 10px;
+      font:700 10px/1 var(--mono);
+      letter-spacing:.05em;
+      text-transform:uppercase;
+      cursor:pointer;
+    }
+    .diag .diag-tab.is-active{
+      background:linear-gradient(180deg, rgba(66,136,230,.22) 0%, rgba(152,128,236,.18) 100%);
+      border-color:rgba(66,136,230,.62);
+      color:#1f3f67;
+    }
+    .diag .diag-action{
+      border:1px solid rgba(86,129,196,.34);
+      background:rgba(255,255,255,.74);
+      color:#33557f;
+      border-radius:999px;
+      padding:5px 9px;
+      font:700 10px/1 var(--mono);
+      letter-spacing:.03em;
+      text-transform:uppercase;
+      cursor:pointer;
+    }
+    .diag .diag-action[data-diag-action="large"].is-active{
+      background:linear-gradient(180deg, rgba(66,136,230,.22) 0%, rgba(152,128,236,.18) 100%);
+      border-color:rgba(66,136,230,.62);
+      color:#1f3f67;
+    }
+    .diag .diag-zoom-readout{
+      color:#3f5f8e;
+      font:700 10px/1 var(--mono);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .diag .diag-board{
+      display:none;
+      border:1px solid rgba(98,145,215,.3);
+      background:#ffffff;
+      border-radius:10px;
+      padding:0;
+      overflow:hidden;
+      position:relative;
+    }
+    .diag .diag-board.is-active{
+      display:block;
+    }
+    .diag .diag-board .diag-svg{
+      transform-origin:top left;
+    }
+    .diag .diag-board-controls{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      background:rgba(255,255,255,.88);
+      border:1px solid rgba(98,145,215,.32);
+      border-radius:999px;
+      padding:4px 6px;
+      backdrop-filter:blur(1px);
+      -webkit-backdrop-filter:blur(1px);
+    }
+    .diag .diag-board-header{
+      display:flex;
+      justify-content:flex-end;
+      padding:8px 8px 0 8px;
+      position:relative;
+      z-index:2;
+    }
+    .diag .diag-board-scroll{
+      padding:8px;
+      overflow:auto;
+      max-height:420px;
+      min-height:320px;
+      position:relative;
+    }
+    .diag .diag-backdrop{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(21,36,61,.24);
+      z-index:58;
+    }
+    .diag.is-large .diag-backdrop{
+      display:block;
+    }
+    .diag.is-large .diag-board.is-active{
+      position:fixed;
+      inset:5vh 4vw;
+      z-index:59;
+      background:#ffffff;
+      box-shadow:0 18px 42px rgba(23,40,67,.24);
+      overflow:hidden;
+      cursor:grab;
+      touch-action:none;
+      user-select:none;
+      -webkit-user-select:none;
+      display:flex;
+      flex-direction:column;
+    }
+    .diag.is-large .diag-board.is-active.is-dragging{
+      cursor:grabbing;
+    }
+    .diag .diag-svg{
+      width:100%;
+      min-width:660px;
+      height:auto;
+      display:block;
+      cursor:zoom-in;
+    }
+    .diag.is-large .diag-board.is-active .diag-svg{
+      cursor:inherit;
+    }
+    .diag.is-large .diag-board.is-active .diag-board-scroll{
+      flex:1;
+      max-height:none;
+      min-height:0;
+    }
+    .diag .diag-node{
+      fill:#f2f7ff;
+      stroke:rgba(79,130,201,.58);
+      stroke-width:1.2;
+      rx:8;
+      ry:8;
+    }
+    .diag .diag-zone{
+      fill:rgba(255,255,255,.96);
+      stroke:rgba(96,143,208,.32);
+      stroke-width:1;
+      rx:10;
+      ry:10;
+    }
+    .diag .diag-zone-label{
+      fill:#3f618f;
+      font:700 9px/1 var(--mono);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .diag .diag-cp-node{
+      fill:rgba(255,255,255,.9);
+      stroke:rgba(80,130,199,.56);
+      stroke-width:1.1;
+      rx:8;
+      ry:8;
+    }
+    .diag .diag-cp-edge{
+      stroke:rgba(70,124,194,.72);
+      stroke-width:1.3;
+      fill:none;
+      marker-end:url(#diagArrow);
+    }
+    .diag .diag-cp-link{
+      stroke:rgba(70,124,194,.5);
+      stroke-width:1.1;
+      fill:none;
+      stroke-dasharray:4 3;
+      marker-end:url(#diagArrow);
+    }
+    .diag .diag-node.core{
+      fill:#e4f0ff;
+      stroke:rgba(56,108,175,.84);
+      stroke-width:1.45;
+    }
+    .diag .diag-edge{
+      stroke:rgba(89,142,210,.64);
+      stroke-width:1.45;
+      fill:none;
+      marker-end:url(#diagArrow);
+    }
+    .diag .diag-edge.core{
+      stroke:rgba(56,108,175,.88);
+      stroke-width:1.8;
+    }
+    .diag .diag-label{
+      fill:#223f66;
+      font:700 10.5px/1.2 var(--mono);
+    }
+    .diag .diag-label.small{
+      fill:#43648f;
+      font:600 9.3px/1.2 var(--mono);
+    }
+    .diag .diag-label.meta{
+      fill:#53759f;
+      font:600 8.4px/1.2 var(--mono);
+    }
+    .diag .diag-stage-columns{
+      margin:10px 0 0;
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:8px;
+      align-items:start;
+    }
+    .diag .diag-stage-lane{
+      display:grid;
+      gap:7px;
+    }
+    .diag .diag-stage-lane.trace-lane{
+      grid-column:1 / -1;
+      grid-template-columns:repeat(3,minmax(220px,1fr));
+      align-items:start;
+    }
+    .diag .diag-stage-lane.trace-lane .lane-kicker{
+      grid-column:1 / -1;
+      margin:0;
+    }
+    .diag .diag-stage-lane .lane-kicker{
+      margin:0;
+      color:#365983;
+      font:700 10px/1 var(--mono);
+      letter-spacing:.07em;
+      text-transform:uppercase;
+      padding:4px 6px;
+      border:1px solid rgba(98,145,215,.32);
+      border-radius:7px;
+      background:rgba(255,255,255,.78);
+    }
+    .diag .diag-stage-col{
+      border:1px solid rgba(98,145,215,.34);
+      border-radius:9px;
+      padding:7px 8px;
+      background:rgba(255,255,255,.8);
+    }
+    .diag .diag-stage-col.core{
+      background:rgba(226,239,255,.9);
+      border-color:rgba(56,108,175,.56);
+    }
+    .diag .diag-stage-col.audit{
+      background:rgba(235,238,255,.92);
+      border-color:rgba(94,106,184,.52);
+    }
+    .diag .diag-stage-col h6{
+      margin:0 0 5px 0;
+      color:#213e65;
+      font:700 10px/1.25 var(--mono);
+      letter-spacing:.02em;
+      text-transform:uppercase;
+    }
+    .diag .diag-stage-col dl{
+      margin:0;
+      display:grid;
+      gap:3px;
+    }
+    .diag .diag-stage-col dl > div{
+      display:grid;
+      grid-template-columns:28px 1fr;
+      gap:5px;
+    }
+    .diag .diag-stage-col dt{
+      margin:0;
+      color:#4f74a5;
+      font:700 9px/1.25 var(--mono);
+      text-transform:uppercase;
+    }
+    .diag .diag-stage-col dd{
+      margin:0;
+      color:#2f4567;
+      font:600 9px/1.25 var(--mono);
+    }
+    .diag .diag-stage-col .key-row{
+      margin-top:4px;
+      padding-top:4px;
+      border-top:1px dashed rgba(98,145,215,.36);
+    }
+    .diag .diag-stage-col .risk-row dt{
+      color:#7d3f36;
+    }
+    .diag .diag-stage-col .gate-row dt{
+      color:#3f5f35;
+    }
+    .diag .mermaid-src{
+      margin:8px 0 0;
+      border:1px solid rgba(98,145,215,.32);
+      border-radius:8px;
+      background:rgba(255,255,255,.86);
+      padding:8px;
+      color:#2f4567;
+      font:600 10px/1.38 var(--mono);
+      overflow:auto;
+      white-space:pre;
+    }
+    .diag .diag-data-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+      gap:8px;
+    }
+    .diag .diag-data-card{
+      border:1px solid rgba(98,145,215,.34);
+      border-radius:10px;
+      background:rgba(255,255,255,.86);
+      padding:8px;
+    }
+    .diag .diag-data-card.core{
+      border-color:rgba(56,108,175,.56);
+      background:rgba(226,239,255,.9);
+    }
+    .diag .diag-data-head{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      margin-bottom:6px;
+    }
+    .diag .diag-data-head .idx{
+      display:inline-flex;
+      min-width:20px;
+      height:20px;
+      align-items:center;
+      justify-content:center;
+      border-radius:999px;
+      background:rgba(66,136,230,.2);
+      color:#2f5788;
+      font:700 10px/1 var(--mono);
+    }
+    .diag .diag-data-card.core .idx{
+      background:rgba(56,108,175,.28);
+      color:#22456e;
+    }
+    .diag .diag-data-head h5{
+      margin:0;
+      color:#213e65;
+      font:700 11px/1.3 var(--mono);
+    }
+    .diag .diag-data-card dl{
+      margin:0;
+      display:grid;
+      gap:4px;
+    }
+    .diag .diag-data-card dl > div{
+      display:grid;
+      grid-template-columns:66px 1fr;
+      gap:6px;
+    }
+    .diag .diag-data-card dt{
+      margin:0;
+      color:#4f74a5;
+      font:700 10px/1.3 var(--mono);
+      text-transform:uppercase;
+    }
+    .diag .diag-data-card dd{
+      margin:0;
+      color:#2f4567;
+      font:600 10px/1.3 var(--mono);
+    }
+    .diag .diag-data-extra{
+      margin-top:6px;
+      padding-top:6px;
+      border-top:1px dashed rgba(98,145,215,.36);
+      color:#2f4567;
+      font:600 10px/1.35 var(--mono);
+    }
+    @media(max-width:720px){
+      .diag .diag-svg{
+        min-width:560px;
+      }
+      .diag .diag-stage-columns{
+        grid-template-columns:1fr;
+      }
+      .diag .diag-stage-lane.trace-lane{
+        grid-template-columns:1fr;
+      }
+    }
+    .rail{
+      position:sticky;
+      top:10px;
+      border:none;
+      border-radius:12px;
+      background:transparent;
+      padding:12px;
+      box-shadow:none;
+    }
+    .rail h3{margin:0 0 8px 0;font-size:14px;color:#4a3d2e}
+    .kv{display:grid;grid-template-columns:100px 1fr;gap:6px 8px;font:600 11px/1.45 var(--mono);color:#6b6155}
+    .kv b{color:var(--accent)}
+    details{
+      margin-top:8px;
+      border:none;
+      border-radius:10px;
+      background:transparent;
+      overflow:hidden;
+    }
+    summary{
+      cursor:pointer;
+      list-style:none;
+      padding:8px 10px;
+      font:700 11px/1.3 var(--mono);
+      color:#4c3f31;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    summary::after{content:"+";color:var(--accent)}
+    details[open] summary::after{content:"−"}
+    .d-body{padding:0 10px 9px;color:#655b4f;font-size:12px;line-height:1.45}
+    .refs{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:8px;
+    }
+    .ref{
+      border:none;
+      background:transparent;
+      border-radius:10px;
+      padding:8px;
+      font-size:12px;
+      color:#665d51;
+    }
+    .eq-graph-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      margin:10px 0 12px;
+    }
+    .eq-graph-card{
+      border:1px solid rgba(141,111,255,.26);
+      background:rgba(255,255,255,.48);
+      border-radius:10px;
+      padding:9px 10px;
+    }
+    .eq-graph-card h4{
+      margin:0 0 6px;
+      color:#3a2f53;
+      font:700 12px/1.25 var(--mono);
+      letter-spacing:.02em;
+      text-transform:uppercase;
+    }
+    .eq-graph-card p{
+      margin:0;
+      font-size:12px;
+      line-height:1.45;
+      color:#564a6d;
+    }
+    .candle-board{
+      border:1px solid rgba(122,162,219,.38);
+      border-radius:10px;
+      padding:8px 10px 9px;
+      background:rgba(247,251,255,.68);
+      margin-top:8px;
+    }
+    .candle-kicker{
+      margin:0 0 8px;
+      color:#3c5c87;
+      font:700 10px/1 var(--mono);
+      letter-spacing:.07em;
+      text-transform:uppercase;
+    }
+    .candle-row{
+      display:grid;
+      grid-template-columns:repeat(6,minmax(0,1fr));
+      gap:8px;
+      align-items:end;
+      min-height:120px;
+    }
+    .candle{
+      position:relative;
+      height:112px;
+      border-radius:6px;
+      background:linear-gradient(180deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,0) 100%);
+      border:1px solid rgba(122,162,219,.18);
+    }
+    .candle::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      width:2px;
+      margin-left:-1px;
+      bottom:8px;
+      height:var(--wick,72px);
+      background:linear-gradient(180deg, rgba(136,171,228,.9) 0%, rgba(136,171,228,.55) 100%);
+      border-radius:2px;
+    }
+    .candle::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      width:16px;
+      margin-left:-8px;
+      bottom:var(--body-bottom,20px);
+      height:var(--body-height,36px);
+      border-radius:3px;
+      background:linear-gradient(180deg, rgba(89,141,214,.96) 0%, rgba(124,107,226,.92) 100%);
+      box-shadow:0 1px 6px rgba(90,124,198,.25);
+    }
+    .candle-label{
+      display:block;
+      margin-top:4px;
+      text-align:center;
+      color:#5776a3;
+      font:700 9px/1 var(--mono);
+    }
+    .eq-matrix{
+      margin:10px 0 14px;
+      border:1px solid rgba(141,111,255,.22);
+      border-radius:12px;
+      background:rgba(255,255,255,.44);
+      padding:10px;
+      position:relative;
+      overflow:hidden;
+    }
+    .eq-matrix-bloch{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      pointer-events:none;
+      opacity:.45;
+      z-index:0;
+    }
+    .eq-matrix-head{
+      margin:0 0 8px;
+      color:#3b3156;
+      font:700 11px/1 var(--mono);
+      letter-spacing:.07em;
+      text-transform:uppercase;
+      position:relative;
+      z-index:1;
+    }
+    .eq-matrix-note{
+      margin:0 0 10px;
+      color:#5b4f74;
+      font-size:12px;
+      line-height:1.45;
+      position:relative;
+      z-index:1;
+    }
+    .eq-matrix-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+      position:relative;
+      z-index:1;
+    }
+    .eq-matrix-card{
+      border:1px solid rgba(122,162,219,.32);
+      border-radius:10px;
+      background:rgba(249,252,255,.76);
+      overflow:hidden;
+    }
+    .eq-matrix-card.controls{
+      grid-column:1 / -1;
+      padding:9px 10px 10px;
+      background:rgba(247,251,255,.84);
+    }
+    .eq-live-plot{
+      display:block;
+      width:100%;
+      height:136px;
+      background:#eef3fb;
+    }
+    .eq-live-fallback{
+      display:block;
+      width:100%;
+      height:136px;
+      object-fit:cover;
+      background:#eef3fb;
+      animation:eqPlotFloat 6.8s ease-in-out infinite;
+    }
+    @keyframes eqPlotFloat{
+      0%{transform:translateY(0) scale(1)}
+      50%{transform:translateY(-2px) scale(1.004)}
+      100%{transform:translateY(0) scale(1)}
+    }
+    .eq-matrix-card{
+      animation:eqPlotFloat 7.2s ease-in-out infinite;
+    }
+    .eq-matrix-card:nth-child(2n){animation-duration:8.1s}
+    .eq-matrix-card:nth-child(3n){animation-duration:9.3s}
+    .eq-matrix-card:nth-child(4n){animation-duration:10.2s}
+    .eq-matrix-grid:hover .eq-matrix-card{
+      animation-duration:6s;
+    }
+    .eq-matrix-link-mode{
+      margin:0 0 10px;
+      color:#4a6389;
+      font:600 10px/1.35 var(--mono);
+      letter-spacing:.03em;
+      text-transform:uppercase;
+      position:relative;
+      z-index:1;
+    }
+    .eq-matrix-link-mode code{
+      display:inline-block;
+      margin-left:6px;
+      padding:2px 6px;
+      border-radius:999px;
+      border:1px solid rgba(96,132,190,.35);
+      background:rgba(255,255,255,.75);
+      color:#314d78;
+      font:700 10px/1 var(--mono);
+    }
+    .eq-matrix-options{
+      margin:6px 0 0;
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:1;
+    }
+    .eq-matrix-opt{
+      border:1px solid rgba(96,132,190,.35);
+      background:rgba(255,255,255,.72);
+      color:#33557f;
+      border-radius:999px;
+      padding:4px 8px;
+      font:700 10px/1 var(--mono);
+      letter-spacing:.03em;
+      text-transform:uppercase;
+      cursor:pointer;
+    }
+    .eq-matrix-options.inline{
+      margin-top:7px;
+      justify-content:flex-start;
+    }
+    .eq-matrix-opt.is-active{
+      background:linear-gradient(180deg, rgba(66,136,230,.22) 0%, rgba(152,128,236,.18) 100%);
+      border-color:rgba(66,136,230,.62);
+      color:#1f3f67;
+    }
+    .eq-matrix-opt[disabled]{
+      opacity:.45;
+      cursor:not-allowed;
+    }
+    .eq-matrix-card .meta{
+      padding:8px 9px 9px;
+    }
+    .eq-matrix-card .meta-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:4px;
+    }
+    .eq-matrix-card .meta b{
+      display:block;
+      margin:0;
+      color:#35527b;
+      font:700 10px/1.25 var(--mono);
+      letter-spacing:.03em;
+      text-transform:uppercase;
+    }
+    .eq-matrix-card .meta span{
+      display:block;
+      color:#536989;
+      font:600 10px/1.35 var(--mono);
+    }
+    .status-chip{
+      display:inline-flex;
+      align-items:center;
+      border-radius:999px;
+      padding:2px 7px;
+      font:700 9px/1 var(--mono);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      border:1px solid transparent;
+      white-space:nowrap;
+    }
+    .status-chip.draft{
+      color:#7b5b2b;
+      background:rgba(214,166,85,.17);
+      border-color:rgba(214,166,85,.34);
+    }
+    .status-chip.validated{
+      color:#2f5f40;
+      background:rgba(103,187,136,.16);
+      border-color:rgba(103,187,136,.34);
+    }
+    .status-chip.published{
+      color:#325a8d;
+      background:rgba(103,159,226,.16);
+      border-color:rgba(103,159,226,.34);
+    }
+    .ref a{color:#7a5a33;text-decoration:none}
+    .ref a:hover{text-decoration:underline}
+    .cta{
+      margin-top:14px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .btn{
+      border:none;
+      border-radius:10px;
+      padding:8px 10px;
+      color:#4b3b2a;
+      text-decoration:none;
+      font:600 12px/1 var(--mono);
+      background:transparent;
+    }
+    .btn:hover{border-color:#9c7a4f}
+    .foot{margin-top:12px;color:#7b6f61;font-size:11px}
+    @media(max-width:1020px){
+      .layout{grid-template-columns:1fr}
+      .rail{position:relative;top:auto}
+      .refs{grid-template-columns:1fr}
+      .eq-graph-grid{grid-template-columns:1fr}
+      .eq-matrix-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .eq-insight-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:760px){
+      :root{
+        --hero-badge-max-width:252px;
+        --hero-badge-padding-y:7px;
+        --hero-badge-padding-x:9px;
+      }
+      .top-menu{
+        align-items:flex-start;
+        flex-direction:column;
+        gap:8px;
+        padding:8px 8px;
+        margin:0 calc(50% - 50vw) 8px;
+      }
+      .top-menu .items{
+        justify-content:flex-start;
+        gap:5px;
+      }
+      .top-menu .items a{
+        font-size:9px;
+        padding:5px 7px;
+      }
+      .paper{
+        padding:12px 10px 14px;
+      }
+      .paper h2{
+        font-size:22px;
+      }
+      .eq{
+        padding:6px 6px;
+      }
+      .eq .sym{
+        font-size:12px;
+      }
+      .eq .plain{
+        font-size:10px;
+      }
+      .eq .eq-link,
+      .exec .exec-eq-link{
+        font-size:9px;
+      }
+      .exec .exec-eq-top,
+      .exec .exec-eq-link,
+      .eq .sym,
+      .eq .plain,
+      .eq .eq-link{
+        display:block;
+        width:100%;
+        max-width:100%;
+      }
+      .eq-matrix-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:520px){
+      .page{
+        padding:14px 8px 38px;
+      }
+      .top-menu{
+        padding:7px 6px;
+      }
+      .top-menu .brand{
+        font-size:9px;
+      }
+      .top-menu .items a{
+        font-size:8px;
+        padding:4px 6px;
+      }
+      .title{
+        font-size:clamp(22px,8vw,36px);
+      }
+      .subtitle{
+        font-size:12px;
+      }
+      .exec{
+        padding:10px 9px;
+      }
+      .exec ul{
+        padding-left:16px;
+      }
+      .eq .sym{
+        font-size:11px;
+      }
+      .eq .plain{
+        font-size:9px;
+      }
+      .eq .eq-link,
+      .exec .exec-eq-link{
+        font-size:8px;
+      }
+      .eq-insight{
+        padding:7px;
+      }
+      .eq-insight h2{
+        font-size:18px;
+      }
+      .eq-insight p{
+        font-size:11px;
+      }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .reactive-dots{display:none;}
+      body::before,
+      body::after{animation:none;}
+      .eq-live-fallback,
+      .eq-matrix-card{animation:none;}
+    }
   </style>
 </head>
 <body>
-  <main class="card" aria-label="qbitOS compliance lane">
-    <h1>qbitOS Compliance</h1>
-    <p>Canonical compliance root for qbitOS and ugrad.ai runtime governance.</p>
-    <p><code>DAC -&gt; Iron Line -&gt; Prefixes -&gt; Quantum Gutter -&gt; .qbit -&gt; preflight</code></p>
-    <div class="chips">
-      <a class="chip" href="https://github.com/qbitOS/compliance">Canonical Repository</a>
-      <a class="chip" href="https://github.com/qbitOS/compliance/blob/main/compliance/evidence/latest/compliance-scoreboard.qjson">Org Scoreboard</a>
-      <a class="chip" href="https://github.com/qbitOS/compliance/blob/main/compliance/evidence/latest/compliance-scoreboard-core-runtime.qjson">Core Runtime Scoreboard</a>
-      <a class="chip" href="https://github.com/orgs/qbitOS/repositories">Organization Repositories</a>
-    </div>
+  <main class="page">
+    <canvas id="dots-layer" class="reactive-dots" aria-hidden="true"></canvas>
+    <nav class="top-menu" aria-label="Primary section menu">
+      <span class="brand">ugrad.ai / qbitos.ai</span>
+      <div class="items">
+        <a href="#summary">Summary</a>
+        <a href="#equations">Equations</a>
+        <a href="#evidence">Evidence</a>
+        <a href="#targets">Targets</a>
+      </div>
+    </nav>
+    <header class="hero">
+      <p class="eyebrow">Launch Paper | ugrad.ai × qbitos.ai</p>
+      <h1 class="title">Quantum-Centric Communication<br>Cycle for Cross-App Intelligence</h1>
+      <p class="subtitle">A publish-ready landing paper defining the Μμ macro/micro model,<br>derived equation stack, retrieval-memory loop, and production pathway<br>for a cross-platform .qhtml / PWA research surface.</p>
+      <div class="brand-row">
+        <span class="pill">UGRAD.AI MAIN LANDING</span>
+        <span class="pill">QBITOS.AI LAUNCHING SOON DUPLICATE</span>
+        <span class="pill">PWA-READY .QHTML FORMAT</span>
+      </div>
+    </header>
+
+    <section class="layout">
+      <article class="paper">
+        <h2 id="summary">Executive Summary</h2>
+        <p>This paper defines a practical architecture for cross-app intelligence where one communication cycle controls authoring, execution, verification, and reuse across browser PWAs and quantum backends.</p>
+        <section class="exec" aria-label="Quick review points">
+          <p class="exec-eq-top">|ψ<sub>out</sub>⟩ = (E ∘ R ∘ D ∘ T)(|ψ<sub>in</sub>⟩), &nbsp; T=Detect, D=Decode, R=Render, E=Enhance</p>
+          <p class="exec-eq-link">Pipeline State Evolution · Use chart lane only when stage timing/fidelity deltas change; otherwise equation-only review is sufficient.</p>
+          <p class="kicker">What A Reviewer Sees Fast</p>
+          <ul>
+            <li><strong>Core thesis:</strong> macro orchestration (Μ) emerges from coordinated micro operators (μ) across a repeatable Detect → Decode → Render → Enhance cycle.</li>
+            <li><strong>Production path:</strong> overclocked local source → prefix/gutter + steno + `.qbit` encode → preflight constraints → QPU dispatch → validation → memory reinjection.</li>
+            <li><strong>Robustness claim:</strong> round-trip fidelity and formatter-safe strip/reinject provide durable artifact integrity and reproducible handoffs.</li>
+            <li><strong>Operational value:</strong> faster iteration, clearer traceability, and lower deployment ambiguity for research-to-runtime workflows.</li>
+          </ul>
+        </section>
+        <div class="diag" aria-label="Communication cycle from authoring to QPU and memory reinjection">
+          <p class="kicker">Communication Cycle Diagram</p>
+          <div class="diag-toolbar" role="tablist" aria-label="Diagram view mode">
+            <button class="diag-tab is-active" type="button" data-diag-view="blocks" aria-pressed="true">Block View</button>
+            <button class="diag-tab" type="button" data-diag-view="data" aria-pressed="false">Data Fields</button>
+          </div>
+          <div class="diag-backdrop" data-diag-backdrop aria-hidden="true"></div>
+
+          <div class="diag-board is-active" data-diag-panel="blocks">
+            <div class="diag-board-header">
+              <div class="diag-board-controls" aria-label="Diagram controls">
+                <button class="diag-action" type="button" data-diag-action="zoom-out">Zoom -</button>
+                <button class="diag-action" type="button" data-diag-action="zoom-in">Zoom +</button>
+                <button class="diag-action" type="button" data-diag-action="zoom-reset">Reset</button>
+                <span class="diag-zoom-readout" data-diag-zoom-readout>100%</span>
+              </div>
+            </div>
+            <div class="diag-board-scroll">
+            <svg class="diag-svg" viewBox="0 0 980 540" role="img" aria-label="Block diagram showing control plane overlay and runtime flow from authoring to DAC core, quantum gutter prefixes, qbit encode, and memory reinjection">
+              <defs>
+                <marker id="diagArrow" viewBox="0 0 10 10" refX="8.3" refY="5" markerWidth="5.6" markerHeight="5.6" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 z" fill="rgba(56,108,175,.88)"></path>
+                </marker>
+              </defs>
+
+              <rect class="diag-zone" x="12" y="10" width="956" height="96"></rect>
+              <text class="diag-zone-label" x="24" y="30">CONTROL PLANE OVERLAY</text>
+              <text class="diag-label meta" x="24" y="45">Users → Agents → Models / MCPs / Servers → runtime flow → user feedback</text>
+
+              <rect class="diag-cp-node" x="24" y="56" width="126" height="34"></rect>
+              <text class="diag-label small" x="35" y="77">Users</text>
+              <rect class="diag-cp-node" x="164" y="56" width="126" height="34"></rect>
+              <text class="diag-label small" x="176" y="77">Agents (L2)</text>
+              <rect class="diag-cp-node" x="304" y="56" width="136" height="34"></rect>
+              <text class="diag-label small" x="316" y="77">Models</text>
+              <rect class="diag-cp-node" x="454" y="56" width="116" height="34"></rect>
+              <text class="diag-label small" x="466" y="77">MCPs</text>
+              <rect class="diag-cp-node" x="584" y="56" width="142" height="34"></rect>
+              <text class="diag-label small" x="596" y="77">Servers</text>
+
+              <path class="diag-cp-edge" d="M150 73 H164"></path>
+              <path class="diag-cp-edge" d="M290 73 H304"></path>
+              <path class="diag-cp-edge" d="M440 73 H454"></path>
+              <path class="diag-cp-edge" d="M570 73 H584"></path>
+
+              <rect class="diag-zone" x="12" y="118" width="956" height="408"></rect>
+              <text class="diag-zone-label" x="24" y="138">RUNTIME FLOW (01–11 SURFACE, CORE NODES SHOWN)</text>
+
+              <rect class="diag-node" x="18" y="144" width="180" height="108"></rect>
+              <text class="diag-label" x="30" y="168">01 Authoring / Intent</text>
+              <text class="diag-label small" x="30" y="186">Prompt + corpus + Contrails</text>
+              <text class="diag-label meta" x="30" y="206">IN: Prompt + context corpus</text>
+              <text class="diag-label meta" x="30" y="220">TG: &lt;100ms intent normalize</text>
+              <text class="diag-label meta" x="30" y="234">OUT: Structured run payload</text>
+
+              <rect class="diag-node" x="222" y="144" width="180" height="108"></rect>
+              <text class="diag-label" x="234" y="168">02 Iron Line L0-L7</text>
+              <text class="diag-label small" x="234" y="186">Deterministic stage routing</text>
+              <text class="diag-label meta" x="234" y="206">IN: Run payload + stage map</text>
+              <text class="diag-label meta" x="234" y="220">TG: Deterministic layer route</text>
+              <text class="diag-label meta" x="234" y="234">OUT: Stage ownership envelope</text>
+              <text class="diag-label meta" x="234" y="248">MCP bridge: tool/resource adapters</text>
+
+              <rect class="diag-node core" x="428" y="144" width="210" height="116"></rect>
+              <text class="diag-label" x="442" y="169">03 DAC Tracks + Stripes</text>
+              <text class="diag-label small" x="442" y="188">Structural observability core</text>
+              <text class="diag-label meta" x="442" y="209">IN: Source lines + language</text>
+              <text class="diag-label meta" x="442" y="223">TG: Sortable structural telemetry</text>
+              <text class="diag-label meta" x="442" y="237">OUT: sym/gate/depth/category</text>
+              <text class="diag-label meta" x="442" y="251">KEY: track/tokenType/contextScore</text>
+
+              <rect class="diag-node core" x="428" y="288" width="210" height="116"></rect>
+              <text class="diag-label" x="442" y="313">05 Quantum Gutter + Prefixes</text>
+              <text class="diag-label small" x="442" y="332">11-symbol semantic coordinates</text>
+              <text class="diag-label meta" x="442" y="353">IN: Normalized source + DAC</text>
+              <text class="diag-label meta" x="442" y="367">TG: Per-line semantic coverage</text>
+              <text class="diag-label meta" x="442" y="381">OUT: prefixSym/cls/gate/conf</text>
+              <text class="diag-label meta" x="442" y="395">KEY: lineCoverage + language</text>
+
+              <rect class="diag-node" x="664" y="288" width="178" height="110"></rect>
+              <text class="diag-label" x="676" y="313">06 .qbit Encode</text>
+              <text class="diag-label small" x="676" y="332">Round-trip safe artifact</text>
+              <text class="diag-label meta" x="676" y="353">IN: Prefixed + steno stream</text>
+              <text class="diag-label meta" x="676" y="367">OUT: Portable `.qbit` payload</text>
+              <text class="diag-label meta" x="676" y="381">Servers: 07/08 runtime substrates</text>
+
+              <rect class="diag-node" x="664" y="420" width="178" height="96"></rect>
+              <text class="diag-label" x="676" y="445">10 Memory Reinjection</text>
+              <text class="diag-label small" x="676" y="464">Retrieval + next iteration</text>
+              <text class="diag-label meta" x="676" y="485">IN: Validated packet + corpus</text>
+              <text class="diag-label meta" x="676" y="499">OUT: Updated iteration state</text>
+
+              <path class="diag-edge" d="M198 192 H222"></path>
+              <path class="diag-edge core" d="M402 192 H428"></path>
+              <path class="diag-edge core" d="M533 260 V288"></path>
+              <path class="diag-edge core" d="M638 344 H664"></path>
+              <path class="diag-edge" d="M753 398 V420"></path>
+              <path class="diag-edge" d="M664 468 C606 468, 586 445, 548 404"></path>
+
+              <path class="diag-cp-link" d="M89 90 C89 112, 104 124, 108 144"></path>
+              <path class="diag-cp-link" d="M227 90 C227 112, 276 124, 312 144"></path>
+              <path class="diag-cp-link" d="M372 90 C372 116, 476 126, 533 144"></path>
+              <path class="diag-cp-link" d="M512 90 C512 116, 700 116, 700 288"></path>
+              <path class="diag-cp-link" d="M655 90 C860 118, 860 360, 842 420"></path>
+              <path class="diag-cp-link" d="M842 516 C914 532, 890 548, 490 548 C122 548, 18 516, 18 90 C18 72, 52 72, 89 90"></path>
+            </svg>
+            </div>
+          </div>
+
+          <div class="diag-board" data-diag-panel="mermaid">
+            <div class="diag-board-header">
+              <div class="diag-board-controls" aria-label="Diagram controls">
+                <button class="diag-action" type="button" data-diag-action="zoom-out">Zoom -</button>
+                <button class="diag-action" type="button" data-diag-action="zoom-in">Zoom +</button>
+                <button class="diag-action" type="button" data-diag-action="zoom-reset">Reset</button>
+                <span class="diag-zoom-readout" data-diag-zoom-readout>100%</span>
+              </div>
+            </div>
+            <div class="diag-board-scroll">
+            <svg class="diag-svg" viewBox="0 0 980 300" role="img" aria-label="Mermaid-style flowchart from authoring to DAC and quantum gutter core stages">
+              <defs>
+                <marker id="diagArrowM" viewBox="0 0 10 10" refX="8.3" refY="5" markerWidth="5.6" markerHeight="5.6" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 z" fill="rgba(56,108,175,.88)"></path>
+                </marker>
+              </defs>
+              <rect class="diag-node" x="22" y="24" width="155" height="46"></rect>
+              <text class="diag-label" x="34" y="52">A[Authoring]</text>
+              <rect class="diag-node" x="214" y="24" width="155" height="46"></rect>
+              <text class="diag-label" x="226" y="52">B[Iron Line]</text>
+              <rect class="diag-node core" x="406" y="24" width="185" height="50"></rect>
+              <text class="diag-label" x="420" y="54">C[DAC Tracks + Stripes]</text>
+              <rect class="diag-node core" x="406" y="104" width="185" height="50"></rect>
+              <text class="diag-label" x="420" y="134">D[Quantum Gutter + Prefixes]</text>
+              <rect class="diag-node" x="632" y="104" width="146" height="50"></rect>
+              <text class="diag-label" x="644" y="134">E[.qbit Encode]</text>
+              <rect class="diag-node" x="810" y="180" width="146" height="50"></rect>
+              <text class="diag-label" x="822" y="210">F[Memory]</text>
+
+              <path class="diag-edge" d="M177 47 H214" style="marker-end:url(#diagArrowM)"></path>
+              <path class="diag-edge core" d="M369 47 H406" style="marker-end:url(#diagArrowM)"></path>
+              <path class="diag-edge core" d="M498 74 V104" style="marker-end:url(#diagArrowM)"></path>
+              <path class="diag-edge core" d="M591 129 H632" style="marker-end:url(#diagArrowM)"></path>
+              <path class="diag-edge" d="M778 129 C836 129, 856 154, 856 180" style="marker-end:url(#diagArrowM)"></path>
+              <path class="diag-edge" d="M810 206 C704 206, 620 190, 560 154" style="marker-end:url(#diagArrowM)"></path>
+            </svg>
+            <pre class="mermaid-src">flowchart LR
+A[Authoring / Intent] --> B[Iron Line L0-L7]
+B --> C[DAC Tracks + Stripes]
+C --> D[Quantum Gutter + Prefixes]
+D --> E[.qbit Robust Encode]
+E --> F[Retrieval + Memory Reinjection]
+F --> A</pre>
+            </div>
+          </div>
+
+          <div class="diag-board" data-diag-panel="data">
+            <div class="diag-board-header">
+              <div class="diag-board-controls" aria-label="Diagram controls">
+                <button class="diag-action" type="button" data-diag-action="zoom-out">Zoom -</button>
+                <button class="diag-action" type="button" data-diag-action="zoom-in">Zoom +</button>
+                <button class="diag-action" type="button" data-diag-action="zoom-reset">Reset</button>
+                <span class="diag-zoom-readout" data-diag-zoom-readout>100%</span>
+              </div>
+            </div>
+            <div class="diag-board-scroll">
+            <div class="diag-data-grid">
+              <article class="diag-data-card">
+                <div class="diag-data-head"><span class="idx">01</span><h5>Authoring / Intent</h5></div>
+                <dl>
+                  <div><dt>Input</dt><dd>Prompt + corpus + Contrails cues</dd></div>
+                  <div><dt>Target</dt><dd>&lt;100ms intent normalization</dd></div>
+                  <div><dt>Output</dt><dd>Structured run payload</dd></div>
+                </dl>
+              </article>
+              <article class="diag-data-card">
+                <div class="diag-data-head"><span class="idx">02</span><h5>Iron Line L0-L7</h5></div>
+                <dl>
+                  <div><dt>Input</dt><dd>Run payload + layer map</dd></div>
+                  <div><dt>Target</dt><dd>24ms cortical budget routing</dd></div>
+                  <div><dt>Output</dt><dd>Deterministic stage ownership</dd></div>
+                </dl>
+              </article>
+              <article class="diag-data-card core">
+                <div class="diag-data-head"><span class="idx">03</span><h5>DAC Tracks + Stripes</h5></div>
+                <dl>
+                  <div><dt>Input</dt><dd>Source lines + language profile</dd></div>
+                  <div><dt>Target</dt><dd>Stable structural telemetry + sorting keys</dd></div>
+                  <div><dt>Output</dt><dd>Track depth, stripe tokens, complexity hotspots</dd></div>
+                </dl>
+                <div class="diag-data-extra">
+                  DAC sorting schema: `sym`, `gate`, `depth`, `category`, `track`, `tokenType`, `lineIndex`, `contextScore`.
+                </div>
+              </article>
+              <article class="diag-data-card">
+                <div class="diag-data-head"><span class="idx">04</span><h5>Steno Transport</h5></div>
+                <dl>
+                  <div><dt>Input</dt><dd>DAC signal + code stream</dd></div>
+                  <div><dt>Target</dt><dd>Invisible metadata retention</dd></div>
+                  <div><dt>Output</dt><dd>`strip` / `pajamas` / `noBLINK` payload</dd></div>
+                </dl>
+              </article>
+              <article class="diag-data-card core">
+                <div class="diag-data-head"><span class="idx">05</span><h5>Quantum Gutter + Prefixes</h5></div>
+                <dl>
+                  <div><dt>Input</dt><dd>Normalized source + DAC context</dd></div>
+                  <div><dt>Target</dt><dd>11-symbol per-line semantic coverage</dd></div>
+                  <div><dt>Output</dt><dd>Prefix coordinates + gate-mapped lines</dd></div>
+                </dl>
+                <div class="diag-data-extra">
+                  Core fields: `prefixSym`, `cls`, `gate`, `lineCoverage`, `confidence`, `language`.
+                </div>
+              </article>
+              <article class="diag-data-card">
+                <div class="diag-data-head"><span class="idx">06</span><h5>.qbit Robust Encode</h5></div>
+                <dl>
+                  <div><dt>Input</dt><dd>Prefixed + steno stream</dd></div>
+                  <div><dt>Target</dt><dd>Round-trip-safe artifact</dd></div>
+                  <div><dt>Output</dt><dd>Portable `.qbit` package</dd></div>
+                </dl>
+              </article>
+              <article class="diag-data-card">
+                <div class="diag-data-head"><span class="idx">07</span><h5>Preflight Constraints</h5></div>
+                <dl>
+                  <div><dt>Input</dt><dd>Candidate circuit / runtime job</dd></div>
+                  <div><dt>Target</dt><dd>Sub-3% submit failure risk</dd></div>
+                  <div><dt>Output</dt><dd>GO / WARN / ABORT verdict</dd></div>
+                </dl>
+              </article>
+              <article class="diag-data-card">
+                <div class="diag-data-head"><span class="idx">08</span><h5>QPU Dispatch</h5></div>
+                <dl>
+                  <div><dt>Input</dt><dd>Preflight-approved payload</dd></div>
+                  <div><dt>Target</dt><dd>Queue-safe execution</dd></div>
+                  <div><dt>Output</dt><dd>Job ID + backend handle</dd></div>
+                </dl>
+              </article>
+              <article class="diag-data-card">
+                <div class="diag-data-head"><span class="idx">09</span><h5>Result Validation</h5></div>
+                <dl>
+                  <div><dt>Input</dt><dd>Raw execution results</dd></div>
+                  <div><dt>Target</dt><dd>Trustworthy post-run quality</dd></div>
+                  <div><dt>Output</dt><dd>Validated result packet</dd></div>
+                </dl>
+              </article>
+              <article class="diag-data-card">
+                <div class="diag-data-head"><span class="idx">10</span><h5>Retrieval + Memory Reinjection</h5></div>
+                <dl>
+                  <div><dt>Input</dt><dd>Validated packet + corpus memory</dd></div>
+                  <div><dt>Target</dt><dd>Higher retrieval precision</dd></div>
+                  <div><dt>Output</dt><dd>Updated memory state</dd></div>
+                </dl>
+              </article>
+              <article class="diag-data-card">
+                <div class="diag-data-head"><span class="idx">11</span><h5>Next Iteration</h5></div>
+                <dl>
+                  <div><dt>Input</dt><dd>Updated memory + operator intent</dd></div>
+                  <div><dt>Target</dt><dd>Lower edit-to-dispatch time</dd></div>
+                  <div><dt>Output</dt><dd>Iteration n+1 start state</dd></div>
+                </dl>
+              </article>
+            </div>
+            </div>
+          </div>
+
+          <div class="diag-stage-columns" aria-label="Stage sorting with input target output">
+            <div class="diag-stage-lane" aria-label="Capture and route lane">
+              <p class="lane-kicker">Capture + Route</p>
+              <article class="diag-stage-col">
+                <h6>01 Intent Capture</h6>
+                <dl>
+                  <div><dt>IN</dt><dd>Prompt + context corpus</dd></div>
+                  <div><dt>TG</dt><dd>&lt;100ms intent normalize</dd></div>
+                  <div><dt>OUT</dt><dd>Structured run payload</dd></div>
+                </dl>
+              </article>
+              <article class="diag-stage-col">
+                <h6>02 Layer Routing</h6>
+                <dl>
+                  <div><dt>IN</dt><dd>Run payload + stage map</dd></div>
+                  <div><dt>TG</dt><dd>Deterministic layer route</dd></div>
+                  <div><dt>OUT</dt><dd>Stage ownership envelope</dd></div>
+                </dl>
+              </article>
+            </div>
+
+            <div class="diag-stage-lane" aria-label="Structure core lane">
+              <p class="lane-kicker">Structure Core</p>
+              <article class="diag-stage-col core">
+                <h6>03 DAC Tracks + Stripes (Core)</h6>
+                <dl>
+                  <div><dt>IN</dt><dd>Source lines + language</dd></div>
+                  <div><dt>TG</dt><dd>Sortable structural telemetry</dd></div>
+                  <div><dt>OUT</dt><dd>Track/stripe annotations</dd></div>
+                  <div class="key-row"><dt>KEY</dt><dd>`sym` `gate` `depth` `category` `track` `tokenType` `lineIndex` `contextScore`</dd></div>
+                </dl>
+              </article>
+              <article class="diag-stage-col">
+                <h6>04 Steno Transport</h6>
+                <dl>
+                  <div><dt>IN</dt><dd>DAC signal + code stream</dd></div>
+                  <div><dt>TG</dt><dd>Invisible metadata retention</dd></div>
+                  <div><dt>OUT</dt><dd>Steno-encoded payload</dd></div>
+                </dl>
+              </article>
+              <article class="diag-stage-col core">
+                <h6>05 Quantum Gutter + Prefixes (Core)</h6>
+                <dl>
+                  <div><dt>IN</dt><dd>Normalized source + DAC context</dd></div>
+                  <div><dt>TG</dt><dd>11-symbol per-line coverage</dd></div>
+                  <div><dt>OUT</dt><dd>Line-level semantic coordinates</dd></div>
+                  <div class="key-row"><dt>KEY</dt><dd>`prefixSym` `cls` `gate` `lineCoverage` `confidence` `language`</dd></div>
+                </dl>
+              </article>
+            </div>
+
+            <div class="diag-stage-lane" aria-label="Runtime and execution lane">
+              <p class="lane-kicker">Artifact + Runtime</p>
+              <article class="diag-stage-col">
+                <h6>06 `.qbit` Encode</h6>
+                <dl>
+                  <div><dt>IN</dt><dd>Prefixed + steno stream</dd></div>
+                  <div><dt>TG</dt><dd>Round-trip fidelity near 1.0</dd></div>
+                  <div><dt>OUT</dt><dd>Portable `.qbit` artifact</dd></div>
+                </dl>
+              </article>
+              <article class="diag-stage-col">
+                <h6>07 Preflight</h6>
+                <dl>
+                  <div><dt>IN</dt><dd>Candidate circuit / job</dd></div>
+                  <div><dt>TG</dt><dd>Sub-3% submit failure</dd></div>
+                  <div><dt>OUT</dt><dd>GO / WARN / ABORT verdict</dd></div>
+                </dl>
+              </article>
+              <article class="diag-stage-col">
+                <h6>08 QPU Dispatch</h6>
+                <dl>
+                  <div><dt>IN</dt><dd>Preflight-approved payload</dd></div>
+                  <div><dt>TG</dt><dd>Queue-safe execution</dd></div>
+                  <div><dt>OUT</dt><dd>Job ID + backend handle</dd></div>
+                </dl>
+              </article>
+              <article class="diag-stage-col">
+                <h6>09 Validation</h6>
+                <dl>
+                  <div><dt>IN</dt><dd>Raw execution results</dd></div>
+                  <div><dt>TG</dt><dd>Post-run quality integrity</dd></div>
+                  <div><dt>OUT</dt><dd>Validated result packet</dd></div>
+                </dl>
+              </article>
+            </div>
+
+            <div class="diag-stage-lane" aria-label="Feedback and iteration lane">
+              <p class="lane-kicker">Memory + Iterate</p>
+              <article class="diag-stage-col">
+                <h6>10 Memory Reinjection</h6>
+                <dl>
+                  <div><dt>IN</dt><dd>Validated packet + corpus</dd></div>
+                  <div><dt>TG</dt><dd>Higher retrieval precision</dd></div>
+                  <div><dt>OUT</dt><dd>Updated memory state</dd></div>
+                </dl>
+              </article>
+              <article class="diag-stage-col">
+                <h6>11 Iteration n+1</h6>
+                <dl>
+                  <div><dt>IN</dt><dd>Updated memory + intent</dd></div>
+                  <div><dt>TG</dt><dd>Lower edit-to-dispatch time</dd></div>
+                  <div><dt>OUT</dt><dd>Iteration n+1 start state</dd></div>
+                </dl>
+              </article>
+            </div>
+            <div class="diag-stage-lane trace-lane" aria-label="Model trace-through audit lane">
+              <p class="lane-kicker">Model Trace-Through Audit</p>
+              <article class="diag-stage-col audit">
+                <h6>A1 Runtime Classification + Routing</h6>
+                <dl>
+                  <div><dt>TASK</dt><dd>Prefix classify + stage routing per line/event</dd></div>
+                  <div><dt>MODEL</dt><dd>T5-native prefix engine (Rust) + DAC heuristics</dd></div>
+                  <div><dt>WHY</dt><dd>Deterministic low-latency path for L0-L4 loops</dd></div>
+                  <div class="risk-row"><dt>RISK</dt><dd>Confidence misses on ambiguous mixed-language lines</dd></div>
+                  <div class="gate-row"><dt>GATE</dt><dd>TensorHead reroute + Qw threshold + line coverage check</dd></div>
+                </dl>
+              </article>
+              <article class="diag-stage-col audit">
+                <h6>A2 Authoring + Build Support</h6>
+                <dl>
+                  <div><dt>TASK</dt><dd>Draft/rewrite specs, explain flows, generate code deltas</dd></div>
+                  <div><dt>MODEL</dt><dd>GPT-5.3 Codex coding agent</dd></div>
+                  <div><dt>WHY</dt><dd>Reliable multi-file edits with strict scope control</dd></div>
+                  <div class="risk-row"><dt>RISK</dt><dd>Scope drift or descriptor-equation mismatch</dd></div>
+                  <div class="gate-row"><dt>GATE</dt><dd>DOM-path checkpoints + row equation audit + lint pass</dd></div>
+                </dl>
+              </article>
+              <article class="diag-stage-col audit">
+                <h6>A3 Retrieval + Memory Reinjection</h6>
+                <dl>
+                  <div><dt>TASK</dt><dd>Rank context and reinject state into next iteration</dd></div>
+                  <div><dt>MODEL</dt><dd>BM25 + vector cosine + rerank + time weighting</dd></div>
+                  <div><dt>WHY</dt><dd>Balances lexical precision with semantic continuity</dd></div>
+                  <div class="risk-row"><dt>RISK</dt><dd>Stale memory overweighting or recency bias under stress</dd></div>
+                  <div class="gate-row"><dt>GATE</dt><dd>Score breakdown inspection + freshness weight + validation packet check</dd></div>
+                </dl>
+              </article>
+            </div>
+          </div>
+        </div>
+        <p>The core contribution is not a standalone feature set, but an integrated control plane: Iron Line L0-L7 for deterministic stage ownership, DAC tracks and stripes for structural observability, and a steno transport layer (`strip`, `pajamas`, `noBLINK`) that preserves timing-critical metadata while keeping developer ergonomics intact. On top of this foundation, the quantum gutter and 11-symbol prefix coordinates provide line-level semantic traceability, while the new `.qbit` codec contributes robustness as a fault-tolerant interchange layer with round-trip-safe encoding, formatter-aware strip/reinject handling, and reproducible decode paths for long-horizon archives and multi-client sync. The ugrad build path operationalizes these abstractions into a measurable pipeline from overclocked local base code to QPU-ready artifacts through preflight checks, backend-constrained dispatch, result validation, and memory reinjection. A second innovation axis is the Contrails keyboard advancement, which turns symbolic concept lanes into an accessible human input protocol for faster intent capture, lower operator cognitive load, and cleaner alignment between keystroke semantics, prefix coordinates, and downstream quantum/runtime transformations. In grant terms, the novelty is the closed-loop linkage of symbolic reasoning, retrieval-memory continuity, resilient codec transport, and production deployment in one reproducible surface, with clear translational value for research velocity, verification rigor, and cross-platform reliability across ugrad.ai and qbitos.ai.</p>
+        <div class="eq">
+          <span class="sym">|ψ<sub>out</sub>⟩ = Μ(∏<sub>i</sub> μ<sub>i</sub>) |0⟩<sup>⊗n</sup>, &nbsp; μ<sub>i</sub> ≡ U(P<sub>i</sub>, d<sub>i</sub>, c<sub>i</sub>, s<sub>i</sub>)</span>
+          <span class="plain">|psi_out&gt; = M(prod_i mu_i)|0&gt;^otimes n, mu_i = U(P_i,d_i,c_i,s_i)</span>
+          <div class="eq-insight">
+            <h2>Canonical Macro/Micro State Equation</h2>
+            <div class="eq-insight-grid">
+              <img class="eq-mini-img" src="../assets/machine-learning-paper-01-744f0646-d20c-4df4-9201-a24a76cdc837.png" alt="Canonical macro micro state circuit chart">
+              <p><strong>Question:</strong> Do local μ operations combine into a stable global Μ state?<br><strong>Metric definition:</strong> coherence=.87, operator stability=.82, aggregate output confidence=.89 (0–1 scale).<br><strong>Decision gate:</strong> if coherence &lt; .80, hold dispatch and rerun operator weighting before cycle advance.</p>
+            </div>
+          </div>
+        </div>
+        <section class="exec eq-walk" aria-label="Operational walkthrough for canonical macro micro state equation">
+          <p class="kicker">Operational Walkthrough: Canonical Macro/Micro State Equation</p>
+          <ul>
+            <li><strong>Macro state (Μ):</strong> orchestrates global routing, memory continuity, and policy gates across Iron Line layers.</li>
+            <li><strong>Micro operators (μ<sub>i</sub>):</strong> per-line transforms carry prefix, depth, context, and semantic signal into execution.</li>
+            <li><strong>Runtime mapping:</strong> `U(P<sub>i</sub>, d<sub>i</sub>, c<sub>i</sub>, s<sub>i</sub>)` maps directly to DAC + Prefixes + Quantum Gutter fields.</li>
+            <li><strong>Product effect:</strong> one equation tracks authoring intent through `.qbit` transport into reproducible runtime behavior.</li>
+          </ul>
+        </section>
+
+        <h3>1. Core Model (Μμ)</h3>
+        <p>Uppercase Mu (Μ) represents macro manifold behavior: global orchestration, routing, memory continuity, and multimodal scoring. Lowercase mu (μ) represents local operators: per-line transforms, confidence reroutes, transport decisions, and cue alignment. This split makes system-level reasoning and implementation-level behavior simultaneously auditable.</p>
+        <div class="eq">
+          <span class="sym">System = Μ(Σ<sub>i</sub> μ<sub>i</sub>(line<sub>i</sub>, event<sub>i</sub>))</span>
+          <span class="plain">System = M(sum_i mu_i(line_i,event_i))</span>
+          <div class="eq-insight">
+            <h2>System Aggregation (Μ over Σμ)</h2>
+            <div class="eq-insight-grid">
+              <canvas class="eq-mini-canvas" width="420" height="216" data-mini-plot="cube-points-static" data-mini-y-min="0.00" data-mini-y-max="1.00" data-mini-x-min="0.00" data-mini-x-max="1.00" data-fallback-src="../assets/opt-paper-02-e7e7afd8-a733-4149-94c0-d339076611de.png" aria-label="System aggregation static cube chart with axes"></canvas>
+              <p><strong>Question:</strong> Is system aggregation fast and correct under load?<br><strong>Metric definition:</strong> event-fusion latency=34ms, stage assignment accuracy=97.2%.<br><strong>Decision gate:</strong> if latency &gt; 50ms or accuracy &lt; 95%, fallback to conservative routing profile.</p>
+            </div>
+          </div>
+        </div>
+        <section class="exec eq-walk" aria-label="Operational walkthrough for system aggregation equation">
+          <p class="kicker">Operational Walkthrough: System Aggregation (Μ over Σμ)</p>
+          <ul>
+            <li><strong>Aggregation rule:</strong> each line/event micro-operation contributes to a single auditable macro system state.</li>
+            <li><strong>Field stitching:</strong> line index + event payload + DAC track context fold into shared run identity and trace.</li>
+            <li><strong>Control use:</strong> drives stage ownership, dispatch order, and memory update priority under load.</li>
+            <li><strong>Product effect:</strong> keeps terminal-core behavior interpretable when parallel actions increase project stress.</li>
+          </ul>
+        </section>
+
+        <h3 id="equations">2. Derived Equation Stack - Canonical Set</h3>
+        <div class="eq">
+          <span class="sym sym-spot">|ψ<sub>out</sub>⟩ = (E ∘ R ∘ D ∘ T)(|ψ<sub>in</sub>⟩)</span>
+          <span class="plain">|psi_out&gt; = (E o R o D o T)(|psi_in&gt;), T=detect, D=decode, R=render, E=enhance</span>
+          <div class="eq-insight">
+            <h2>Pipeline State Evolution</h2>
+            <div class="eq-insight-grid">
+              <img class="eq-mini-img" src="../assets/machine-learning-paper-03-c4229434-05de-4444-90f6-b4a40e00b025.png" alt="Pipeline state evolution chart">
+              <p><strong>Question:</strong> Where does cycle time concentrate in T→D→R→E?<br><strong>Metric definition:</strong> T=42ms, D=31ms, R=18ms, E=24ms (total 115ms).<br><strong>Decision gate:</strong> if total &gt; 140ms, optimize top-two contributors first (currently T and D).</p>
+            </div>
+          </div>
+        </div>
+        <section class="exec eq-walk" aria-label="Operational walkthrough for pipeline state evolution">
+          <p class="kicker">Operational Walkthrough: Pipeline State Evolution (Detect → Decode → Render → Enhance)</p>
+          <ul>
+            <li><strong>Detect (T):</strong> capture source intent and runtime context from `uterm`, `quantum-notepad`, and commander input channels.</li>
+            <li><strong>Decode (D):</strong> classify/parse lines into structural coordinates via prefix + DAC paths before any export or dispatch.</li>
+            <li><strong>Render (R):</strong> materialize UI/state outputs (cards, traces, charts, terminal output) for operator review.</li>
+            <li><strong>Enhance (E):</strong> reinject retrieval-memory and confidence feedback to improve the next operator cycle.</li>
+          </ul>
+        </section>
+        <div class="eq">
+          <span class="sym sym-spot">ŷ<sub>i</sub> = argmax<sub>k</sub> p(k∣x<sub>i</sub>), if max p &lt; τ → TensorHead(x<sub>i</sub>, 𝒩<sub>i</sub>)</span>
+          <span class="plain">y_hat_i = argmax_k p(k|x_i), if max p &lt; tau -&gt; TensorHead(x_i,N_i)</span>
+          <div class="eq-insight">
+            <h2>Adaptive Confidence with Reclassification</h2>
+            <div class="eq-insight-grid">
+              <img class="eq-mini-img" src="../assets/ham-paper-02-9ca0ed15-540f-4650-ae4d-f86a006139d3.png" alt="Adaptive confidence and error spread chart">
+              <p><strong>Question:</strong> Does rerouting low-confidence lines improve correctness?<br><strong>Metric definition:</strong> reroute rate=7.8%, precision lift=+4.6pp, false-route=2.1%.<br><strong>Decision gate:</strong> if false-route exceeds 3%, raise τ sensitivity and retune confidence thresholds.</p>
+            </div>
+          </div>
+        </div>
+        <section class="exec eq-walk" aria-label="Operational walkthrough for adaptive confidence reclassification">
+          <p class="kicker">Operational Walkthrough: Adaptive Confidence with Reclassification</p>
+          <ul>
+            <li><strong>Primary pass:</strong> fast classifier resolves line/operator intent at low latency for terminal-grade responsiveness.</li>
+            <li><strong>Confidence gate:</strong> when probability falls below τ, payload escalates to tensor context (`TensorHead`) instead of forcing bad labels.</li>
+            <li><strong>Outcome:</strong> low-confidence noise is isolated and corrected without slowing high-confidence paths.</li>
+            <li><strong>Product effect:</strong> fewer silent misroutes in automation and safer autonomous patch generation.</li>
+          </ul>
+        </section>
+        <div class="eq">
+          <span class="sym sym-spot">Qw(i) = P<sub>i</sub><sup>α</sup> · D<sub>i</sub><sup>β</sup> · C<sub>i</sub><sup>γ</sup> · S<sub>i</sub><sup>δ</sup></span>
+          <span class="plain">Qw(i) = P_i^alpha * D_i^beta * C_i^gamma * S_i^delta</span>
+          <div class="eq-insight">
+            <h2>Prefix-Depth-Semantic Composite</h2>
+            <div class="eq-insight-grid">
+              <canvas class="eq-mini-canvas" width="420" height="216" data-mini-plot="cube-points-static" data-mini-y-min="0.00" data-mini-y-max="1.00" data-mini-x-min="0.00" data-mini-x-max="1.00" data-fallback-src="../assets/opt-paper-02-e7e7afd8-a733-4149-94c0-d339076611de.png" aria-label="Prefix depth static cube chart with axes"></canvas>
+              <p><strong>Question:</strong> Are Qw weights balanced for current workload type?<br><strong>Metric definition:</strong> α=.35 β=.22 γ=.27 δ=.16; median Qw=.79.<br><strong>Decision gate:</strong> if median Qw &lt; .72, rebalance α/γ for semantic-heavy sessions.</p>
+            </div>
+          </div>
+        </div>
+        <section class="exec eq-walk" aria-label="Operational walkthrough for prefix depth semantic composite">
+          <p class="kicker">Operational Walkthrough: Prefix-Depth-Semantic Composite (Qw)</p>
+          <ul>
+            <li><strong>P (prefix):</strong> structural symbol confidence from the 11-symbol gutter system.</li>
+            <li><strong>D (depth):</strong> nesting/scope pressure from DAC track context to detect risky structural transitions.</li>
+            <li><strong>C/S (context/semantic):</strong> local and cross-line meaning weight for retrieval + runtime ranking.</li>
+            <li><strong>Tuning:</strong> α/β/γ/δ can be configured per app/layer to balance speed vs precision in terminal flows.</li>
+          </ul>
+        </section>
+        <div class="eq">
+          <span class="sym sym-spot">𝓕<sub>rt</sub> = 1 − d(x, x̃) / ∥x∥</span>
+          <span class="plain">F_rt = 1 - d(x, x_tilde)/||x||, x_tilde = decode(encode(x))</span>
+          <div class="eq-insight">
+            <h2>Round-Trip Fidelity</h2>
+            <div class="eq-insight-grid">
+              <img class="eq-mini-img" src="../assets/pde-paper-02-6d41bc18-210d-4f5c-abb7-5deff2421a2b.png" alt="Round trip fidelity field stability heatmap">
+              <p><strong>Question:</strong> Is round-trip integrity good enough for production handoff?<br><strong>Metric definition:</strong> F_rt mean=.983, p95=.976, release floor=.960, breaches=1.7%.<br><strong>Decision gate:</strong> if breaches exceed 3%, block export and run strip/reinject diagnostics.</p>
+            </div>
+          </div>
+        </div>
+        <section class="exec eq-walk" aria-label="Operational walkthrough for round trip fidelity">
+          <p class="kicker">Operational Walkthrough: Round-Trip Fidelity for Handoff Artifacts</p>
+          <ul>
+            <li><strong>Encode/decode loop:</strong> every `.qbit` artifact can be checked against source payload before handoff.</li>
+            <li><strong>Metric gate:</strong> reject or warn if 𝓕<sub>rt</sub> drops below release threshold for production workflows.</li>
+            <li><strong>Formatter-safe path:</strong> strip/reinject is validated to keep semantic payload stable after code formatting.</li>
+            <li><strong>Product effect:</strong> stable archival and reproducible transport across machines/clients.</li>
+          </ul>
+        </section>
+        <div class="eq">
+          <span class="sym sym-spot">m<sub>t+1</sub> = λm<sub>t</sub> + (1−λ)φ(e<sub>t</sub>)</span>
+          <span class="plain">m_(t+1) = lambda*m_t + (1-lambda)*phi(e_t)</span>
+          <div class="eq-insight">
+            <h2>Cross-App Memory Update</h2>
+            <div class="eq-insight-grid">
+              <img class="eq-mini-img" src="../assets/machine-learning-paper-02-b0b565aa-6cf6-4804-869d-03d364065759.png" alt="Cross app memory update chart">
+              <p><strong>Question:</strong> Is memory improving signal without instability?<br><strong>Metric definition:</strong> λ=.82, memory gain=+6.2%, variance=±3.4%.<br><strong>Decision gate:</strong> if variance exceeds ±5%, lower reinjection weight and tighten freshness bias.</p>
+            </div>
+          </div>
+        </div>
+        <section class="exec eq-walk" aria-label="Operational walkthrough for cross app memory update">
+          <p class="kicker">Operational Walkthrough: Cross-App Memory Update Rule</p>
+          <ul>
+            <li><strong>State blend:</strong> previous memory and new event evidence combine using λ to avoid thrash.</li>
+            <li><strong>Persistence:</strong> synced through local app state + `BroadcastChannel` updates for shared context continuity.</li>
+            <li><strong>Usage:</strong> drives better defaults for next command, prompt expansion, and retrieval scoring.</li>
+            <li><strong>Stress behavior:</strong> memory smoothing reduces regression when project pressure increases.</li>
+          </ul>
+        </section>
+        <div class="eq">
+          <span class="sym sym-spot">v<sub>t+1</sub> = ηv<sub>t</sub> + a<sub>t</sub>, &nbsp; Δidx = sign(v) · 𝟙(|v| &gt; v<sub>min</sub>)</span>
+          <span class="plain">v_(t+1) = eta*v_t + a_t, Delta_idx = sign(v) * 1(|v| &gt; v_min)</span>
+          <div class="eq-insight">
+            <h2>Transport/Scrub Dynamics</h2>
+            <div class="eq-insight-grid">
+              <img class="eq-mini-img" src="../assets/machine-learning-paper-03-c4229434-05de-4444-90f6-b4a40e00b025.png" alt="Transport and scrub dynamic trend chart">
+              <p><strong>Question:</strong> Are scrub interactions fast without accidental jumps?<br><strong>Metric definition:</strong> v_min=.35, overshoot=0.8%, settle time=112ms median.<br><strong>Decision gate:</strong> if overshoot &gt; 2%, raise v_min or increase damping η.</p>
+            </div>
+          </div>
+        </div>
+        <section class="exec eq-walk" aria-label="Operational walkthrough for transport and scrub dynamics">
+          <p class="kicker">Operational Walkthrough: Transport / Scrub Dynamics (Inertial Navigation)</p>
+          <ul>
+            <li><strong>Velocity model:</strong> inertia + acceleration captures swipe/scroll intent in queue or timeline surfaces.</li>
+            <li><strong>Threshold gate:</strong> `Δidx` only steps when |v| exceeds `v_min`, preventing accidental jumps.</li>
+            <li><strong>UI targets:</strong> coverflow queues, run history stepping, and timeline inspection tracks.</li>
+            <li><strong>Product effect:</strong> smoother control at high speed without losing deterministic indexing.</li>
+          </ul>
+        </section>
+        <div class="eq">
+          <span class="sym sym-spot">j* = argmin<sub>j</sub> |t<sub>media</sub> − t<sub>j</sub>|</span>
+          <span class="plain">j_star = argmin_j |t_media - t_j|</span>
+          <div class="eq-insight">
+            <h2>Transcript-to-Media Alignment</h2>
+            <div class="eq-insight-grid">
+              <canvas class="eq-mini-canvas" width="420" height="216" data-mini-plot="cube-points-static" data-mini-y-min="0.00" data-mini-y-max="1.00" data-mini-x-min="0.00" data-mini-x-max="1.00" data-fallback-src="../assets/pde-paper-03-1a23c4f4-c665-4ec8-be10-5b417fe700ec.png" aria-label="Transcript alignment static cube with points and axes"></canvas>
+              <p><strong>Question:</strong> Does transcript highlighting stay time-locked to media?<br><strong>Metric definition:</strong> cue delta median=42ms, p95=96ms.<br><strong>Decision gate:</strong> if p95 exceeds 140ms, re-anchor cue matching cadence.</p>
+            </div>
+          </div>
+        </div>
+        <section class="exec eq-walk" aria-label="Operational walkthrough for transcript to media alignment">
+          <p class="kicker">Operational Walkthrough: Transcript-to-Media Alignment</p>
+          <ul>
+            <li><strong>Nearest cue:</strong> active caption/index block is selected by minimal time delta against playback clock.</li>
+            <li><strong>Runtime behavior:</strong> keeps transcript highlight and media state synchronized during seek/scrub.</li>
+            <li><strong>Targets:</strong> VTT attachment paths, narrated walkthroughs, and review timelines.</li>
+            <li><strong>Product effect:</strong> fast evidence lookup with less operator confusion during debug/demo sessions.</li>
+          </ul>
+        </section>
+        <div class="eq">
+          <span class="sym sym-spot">p′ = R<sub>z</sub>(ψ) · R<sub>y</sub>(θ) · R<sub>x</sub>(φ) · p</span>
+          <span class="plain">p_prime = Rz(psi) * Ry(theta) * Rx(phi) * p</span>
+          <div class="eq-insight">
+            <h2>XR/Ocular Pose Projection</h2>
+            <div class="eq-insight-grid">
+              <img class="eq-mini-img" src="../assets/pde-paper-03-1a23c4f4-c665-4ec8-be10-5b417fe700ec.png" alt="XR ocular spatial trajectory chart">
+              <p><strong>Question:</strong> Is spatial projection accurate enough for XR navigation?<br><strong>Metric definition:</strong> yaw RMSE=1.9°, pitch=2.3°, roll=1.6°.<br><strong>Decision gate:</strong> if any axis RMSE exceeds 3.0°, apply recalibration pass before publish.</p>
+            </div>
+          </div>
+        </div>
+        <section class="exec eq-walk" aria-label="Operational walkthrough for xr and ocular pose projection">
+          <p class="kicker">Operational Walkthrough: XR / Ocular Pose Projection</p>
+          <ul>
+            <li><strong>Rotation chain:</strong> yaw/pitch/roll transforms apply in ordered sequence for stable orientation math.</li>
+            <li><strong>Visual targets:</strong> point clouds, voxel fields, and sequence viewers across quantum and research views.</li>
+            <li><strong>Interaction:</strong> pointer/camera deltas map into pose updates for interpretable motion.</li>
+            <li><strong>Product effect:</strong> spatial views stay coherent while navigating dense technical state.</li>
+          </ul>
+        </section>
+        <div class="eq">
+          <span class="sym sym-spot">Score(d∣q) = w<sub>b</sub>·BM25 + w<sub>v</sub>·cos(e<sub>q</sub>,e<sub>d</sub>) + w<sub>r</sub>·rerank(q,d) + w<sub>t</sub>·time(d)</span>
+          <span class="plain">Score(d|q) = w_b*BM25 + w_v*cos(e_q,e_d) + w_r*rerank(q,d) + w_t*time(d)</span>
+          <div class="eq-insight">
+            <h2>Multimodal Ranking</h2>
+            <div class="eq-insight-grid">
+              <img class="eq-mini-img" src="../assets/machine-learning-paper-02-b0b565aa-6cf6-4804-869d-03d364065759.png" alt="Multimodal ranking matrix chart">
+              <p><strong>Question:</strong> Which scoring component drives ranking quality right now?<br><strong>Metric definition:</strong> w_b=.28, w_v=.34, w_r=.24, w_t=.14; MRR=.78.<br><strong>Decision gate:</strong> if MRR drops below .74, rebalance w_r/w_v and rerun relevance calibration.</p>
+            </div>
+          </div>
+        </div>
+        <section class="exec eq-walk" aria-label="Operational walkthrough for multimodal ranking">
+          <p class="kicker">Operational Walkthrough: Multimodal Ranking for Search + History</p>
+          <ul>
+            <li><strong>Lexical signal:</strong> BM25 captures exact keyword/operator surface relevance.</li>
+            <li><strong>Semantic signal:</strong> embedding cosine resolves concept-level similarity beyond token overlap.</li>
+            <li><strong>Rerank + time:</strong> intent-aware reranker and recency weighting improve practical retrieval precision.</li>
+            <li><strong>Product effect:</strong> conversation context stays aligned to “work in progress” instead of stale matches.</li>
+          </ul>
+        </section>
+        <div class="eq">
+          <span class="sym sym-spot">𝒞<sub>t+1</sub> = Π(𝒞<sub>t</sub>, Qw, 𝓕<sub>rt</sub>, M<sub>t</sub>, 𝓡<sub>mm</sub>)</span>
+          <span class="plain">C_(t+1) = Pi(C_t,Qw,F_rt,M_t,R_mm)</span>
+          <div class="eq-insight">
+            <h2>Unified Communication Cycle Operator</h2>
+            <div class="eq-insight-grid">
+              <canvas class="eq-mini-canvas" width="420" height="216" data-mini-plot="bloch-cycle" data-fallback-src="../assets/machine-learning-paper-01-744f0646-d20c-4df4-9201-a24a76cdc837.png" aria-label="Unified communication Bloch cycle chart"></canvas>
+              <p><strong>Question:</strong> Does Π composition improve next-cycle performance?<br><strong>Metric definition:</strong> cycle score=.88, next-iteration latency improvement=13%.<br><strong>Decision gate:</strong> if improvement falls below 8%, review component weights (Qw/F_rt/M_t/R_mm).</p>
+            </div>
+          </div>
+        </div>
+        <section class="exec eq-walk" aria-label="Operational walkthrough for unified communication cycle operator">
+          <p class="kicker">Operational Walkthrough: Unified Communication Cycle Operator</p>
+          <ul>
+            <li><strong>Composition layer:</strong> Π ties classification weight (Qw), artifact integrity (𝓕<sub>rt</sub>), memory (M<sub>t</sub>), and retrieval (𝓡<sub>mm</sub>) into one decision surface.</li>
+            <li><strong>Operational loop:</strong> each iteration updates the next run state instead of treating outputs as terminal.</li>
+            <li><strong>Terminal-core relevance:</strong> converts math into actionable control logic for deployment and autonomous iteration.</li>
+            <li><strong>Scale behavior:</strong> as project stress increases, this keeps the system auditable and less error-prone.</li>
+          </ul>
+        </section>
+        <h3 id="evidence">2.1 Evidence Graphing + Benchmark Expansion</h3>
+        <p>To expound the equation stack with contemporary quantum-centric evidence, this section maps each equation family to chart and graph forms used in current IBM quantum research/announcement narratives and related benchmark reporting. The intent is to make each symbol block auditable via a concrete visual method, not prose alone.</p>
+        <div class="eq-graph-grid">
+          <article class="eq-graph-card">
+            <h4>Closed-Loop Orchestration Graphs</h4>
+            <p>For <code>|ψ<sub>out</sub>⟩ = (E ∘ R ∘ D ∘ T)(|ψ<sub>in</sub>⟩)</code> and <code>𝒞<sub>t+1</sub> = Π(...)</code>, use linked workflow/network charts that show quantum/classical handoff, queue utilization, and loop latency across runtime nodes.</p>
+          </article>
+          <article class="eq-graph-card">
+            <h4>Error/Fidelity Progression Curves</h4>
+            <p>For <code>𝓕<sub>rt</sub></code>, <code>Qw(i)</code>, and confidence-reroute equations, use line/scatter/interval plots with uncertainty markers to show quality, variance, and threshold gate behavior.</p>
+          </article>
+          <article class="eq-graph-card">
+            <h4>Multimodal Ranking Diagnostics</h4>
+            <p>For <code>Score(d∣q)</code>, visualize contribution decomposition (BM25, vector, rerank, time) and retrieval drift over iterations to validate memory reinjection effects.</p>
+          </article>
+          <article class="eq-graph-card">
+            <h4>Transport + Runtime Scaling</h4>
+            <p>For <code>v<sub>t+1</sub></code> and queue-step dynamics, use throughput-vs-latency charts and dimension scaling plots to expose bottlenecks under boardroom-scale workloads.</p>
+          </article>
+        </div>
+        <section class="exec eq-walk" aria-label="Candlestick style benchmark method for equation reporting">
+          <p class="kicker">Chart Method: Candlestick-Style Bars for Equation Benchmarks</p>
+          <ul>
+            <li><strong>Bar body:</strong> central estimate for each equation metric lane (e.g., <code>F<sub>rt</sub></code>, rerank gain, dispatch latency).</li>
+            <li><strong>Upper/lower wick:</strong> confidence interval or run-to-run spread to prevent overclaiming single-point wins.</li>
+            <li><strong>Side-by-side lanes:</strong> baseline vs current vs target so product/readiness deltas remain visible to reviewers.</li>
+          </ul>
+          <div class="candle-board" aria-label="Example candlestick style bar panel">
+            <p class="candle-kicker">Equation Metrics Candlestick Panel (Baseline → Current)</p>
+            <div class="candle-row">
+              <div>
+                <div class="candle" style="--wick:78px; --body-bottom:26px; --body-height:28px;"></div>
+                <span class="candle-label">F_rt</span>
+              </div>
+              <div>
+                <div class="candle" style="--wick:88px; --body-bottom:20px; --body-height:36px;"></div>
+                <span class="candle-label">Qw</span>
+              </div>
+              <div>
+                <div class="candle" style="--wick:70px; --body-bottom:30px; --body-height:24px;"></div>
+                <span class="candle-label">Score</span>
+              </div>
+              <div>
+                <div class="candle" style="--wick:94px; --body-bottom:18px; --body-height:42px;"></div>
+                <span class="candle-label">Memory</span>
+              </div>
+              <div>
+                <div class="candle" style="--wick:82px; --body-bottom:24px; --body-height:32px;"></div>
+                <span class="candle-label">Dispatch</span>
+              </div>
+              <div>
+                <div class="candle" style="--wick:76px; --body-bottom:28px; --body-height:30px;"></div>
+                <span class="candle-label">Cycle Π</span>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="exec eq-walk" aria-label="IBM-linked evidence trail for equation stack">
+          <p class="kicker">IBM-Linked Evidence Trail for Equation Sections</p>
+          <ul>
+            <li><strong>QCSC closed-loop anchor:</strong> RIKEN + IBM Fugaku/Heron orchestration references the exact type of closed-loop control this paper formalizes.</li>
+            <li><strong>Networked scale-out anchor:</strong> IBM’s QNU/networked quantum roadmap aligns with the control-plane + server/MCP orchestration lane in the diagram.</li>
+            <li><strong>Research corpus anchor:</strong> IBM research/publication streams provide optimization, Hamiltonian, PDE, and ML graph forms for equation-to-chart traceability.</li>
+            <li><strong>Update lane:</strong> maintain this section as a living benchmark board tied to blog/research updates and release checkpoints.</li>
+          </ul>
+          <p class="plain"><strong>Data provenance rule:</strong> this page treats first-party uvspeed/uterm runs as claim-bearing evidence; external company figures are context comparators only, not endorsements or performance claims.</p>
+          <p class="plain"><a href="https://www.ibm.com/quantum/blog/riken-fugaku-qcsc" target="_blank" rel="noopener">RIKEN + IBM QCSC at scale</a> · <a href="https://www.ibm.com/quantum/blog/networked-quantum-computers" target="_blank" rel="noopener">Networked quantum computers roadmap</a> · <a href="https://www.ibm.com/quantum/blog" target="_blank" rel="noopener">IBM Quantum Blog</a> · <a href="https://www.ibm.com/quantum/research" target="_blank" rel="noopener">IBM Quantum Research</a></p>
+        </section>
+        <section class="exec eq-walk" aria-label="Live equation to figure asset matrix">
+          <p class="kicker">Live Equation → Figure Asset Matrix (Local Assets)</p>
+          <div class="eq-matrix">
+            <canvas class="eq-matrix-bloch" aria-hidden="true"></canvas>
+            <p class="eq-matrix-head">Equation Traceability Panel</p>
+            <p class="eq-matrix-note">Each tile binds one equation lane to a local figure asset and a validation role. Swap assets per run while preserving equation mapping IDs for audit continuity.</p>
+            <p class="eq-matrix-link-mode">Link detect <code id="eq-link-mode">probing...</code></p>
+            <div class="eq-matrix-grid">
+              <article class="eq-matrix-card">
+                <canvas class="eq-live-plot" width="640" height="300" data-plot="network" data-fallback-src="assets/machine-learning-paper-01-744f0646-d20c-4df4-9201-a24a76cdc837.png" data-y-min="0" data-y-max="100" data-y-unit="% load" data-x-label="stage index" aria-label="Live networked quantum topology plot"></canvas>
+                <div class="meta"><div class="meta-top"><b>E01/E10 — Pipeline + Memory Loop</b><span class="status-chip published">Published</span></div><span>Control-plane routing / closed-loop orchestration map</span></div>
+              </article>
+              <article class="eq-matrix-card">
+                <canvas class="eq-live-plot" width="640" height="300" data-plot="line" data-fallback-src="assets/ham-paper-02-9ca0ed15-540f-4650-ae4d-f86a006139d3.png" data-y-min="0.42" data-y-max="0.74" data-y-unit="score" data-x-label="run window" aria-label="Live confidence and energy curve plot"></canvas>
+                <div class="meta"><div class="meta-top"><b>E02 — Confidence + Reclassify</b><span class="status-chip validated">Validated</span></div><span>Error/energy spread with interval behavior</span></div>
+              </article>
+              <article class="eq-matrix-card">
+                <canvas class="eq-live-plot" width="640" height="300" data-plot="scatter" data-fallback-src="assets/opt-paper-02-e7e7afd8-a733-4149-94c0-d339076611de.png" data-y-min="0" data-y-max="350" data-y-unit="ops" data-x-label="objective mix" aria-label="Live optimization density scatter plot"></canvas>
+                <div class="meta"><div class="meta-top"><b>E03 — Qw Composite Weight</b><span class="status-chip validated">Validated</span></div><span>Dimension scaling and objective landscape</span></div>
+              </article>
+              <article class="eq-matrix-card">
+                <canvas class="eq-live-plot" width="640" height="300" data-plot="heatmap" data-fallback-src="assets/pde-paper-02-6d41bc18-210d-4f5c-abb7-5deff2421a2b.png" data-y-min="0.90" data-y-max="1.00" data-y-unit="F_rt" data-x-label="decode span" aria-label="Live round-trip fidelity heatmap plot"></canvas>
+                <div class="meta"><div class="meta-top"><b>E04 — F_rt Round-Trip Fidelity</b><span class="status-chip draft">Draft</span></div><span>Field stability/noise/restore panel progression</span></div>
+              </article>
+              <article class="eq-matrix-card">
+                <canvas class="eq-live-plot" width="640" height="300" data-plot="matrix" data-fallback-src="assets/machine-learning-paper-02-b0b565aa-6cf6-4804-869d-03d364065759.png" data-y-min="0.00" data-y-max="1.00" data-y-unit="score" data-x-label="modality lane" aria-label="Live multimodal score matrix plot"></canvas>
+                <div class="meta"><div class="meta-top"><b>E08 — Multimodal Score(d|q)</b><span class="status-chip draft">Draft</span></div><span>Comparative ranking surfaces and contrast lane</span></div>
+              </article>
+              <article class="eq-matrix-card">
+                <canvas class="eq-live-plot" width="640" height="300" data-plot="circuit" data-fallback-src="assets/machine-learning-paper-03-c4229434-05de-4444-90f6-b4a40e00b025.png" data-y-min="0" data-y-max="4" data-y-unit="wire" data-x-label="operator depth" aria-label="Live unified cycle operator circuit plot"></canvas>
+                <div class="meta"><div class="meta-top"><b>E11 — Unified Cycle Operator Π</b><span class="status-chip validated">Validated</span></div><span>Composed operator blocks and stage dependencies</span></div>
+              </article>
+              <article class="eq-matrix-card controls">
+                <div class="meta"><div class="meta-top"><b>Chart Pack Controls</b><span class="status-chip published">Live</span></div><span>Switch all matrix cards between Default, Bloch, 3D Cube, and Circuit views.</span></div>
+                <div class="eq-matrix-options inline" aria-label="Chart options">
+                  <button type="button" class="eq-matrix-opt is-active" data-chart-pack="default">Default</button>
+                  <button type="button" class="eq-matrix-opt" data-chart-pack="bloch">Bloch</button>
+                  <button type="button" class="eq-matrix-opt" data-chart-pack="cube">3D Cube</button>
+                  <button type="button" class="eq-matrix-opt" data-chart-pack="circuit">Circuit</button>
+                </div>
+              </article>
+              <article class="eq-matrix-card controls">
+                <div class="meta">
+                  <div class="meta-top"><b>E03 Extension Lane</b><span class="status-chip validated">Validated</span></div>
+                  <span>Qw composite lane expansion for side-by-side dimension checks below the primary matrix cards.</span>
+                  <span style="margin-top:6px;">alpha=.35 · beta=.22 · gamma=.27 · delta=.16 · median Qw=.79</span>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+        <section class="exec eq-walk" aria-label="uTerm pipeline to quantum integration readiness">
+          <p class="kicker">uTerm → Quantum Integration Readiness Gate</p>
+          <ul>
+            <li><strong>Gate A (signal fidelity):</strong> `uterm` command stream exports deterministic prefix + steno traces with `F_rt` above release threshold.</li>
+            <li><strong>Gate B (dispatch safety):</strong> `.qbit` artifacts pass preflight GO/WARN policy and backend compatibility checks before QPU queueing.</li>
+            <li><strong>Gate C (closed-loop memory):</strong> memory reinjection and retrieval score deltas are measured per iteration and attached to the equation matrix row IDs.</li>
+            <li><strong>Gate D (boardroom evidence):</strong> each milestone review includes updated local figure assets, candlestick metric bars, and run metadata for reproducibility.</li>
+          </ul>
+        </section>
+
+        <h3>3. Deployment Pattern for .qhtml</h3>
+        <p>The landing is intentionally structured as a publication-grade PWA document: semantic sections, dense typography, justified narrative blocks, and a sticky expansion rail that keeps technical context available while reading. This supports desktop and mobile reading, and mirrors cleanly into launch announcements without layout drift.</p>
+
+        <h3>3.1 Quantum Race Dynamics</h3>
+        <p>The visual transport layer follows a race-wave interpretation of the communication cycle: Bloch-field coherence, torn-mesh constraints, and dot-flow sampling evolve together under one shared waveform. This mirrors the system objective where macro state (Μ) is not isolated from local operators (μ); instead, all lanes update from the same cycle clock, making phase drift, queue transitions, and retrieval-memory reinjection observable as one coupled dynamic rather than separate effects.</p>
+
+        <h3 id="targets">4. Publication + Distribution Targets</h3>
+        <p>For final output, treat publication as a two-track release: (A) peer-reviewed research visibility, and (B) production-grade software distribution with explicit licensing and citation metadata.</p>
+        <div class="refs">
+          <div class="ref"><a href="https://www.nature.com/natcomputsci/submission-guidelines" target="_blank" rel="noopener">Nature Computational Science — Submission Guidelines</a><br>Target checklist for manuscript scope fit, initial formatting, editorial process, ORCID linkage, and production readiness.</div>
+          <div class="ref"><a href="https://arxiv.org" target="_blank" rel="noopener">arXiv (quant-ph / cs.AI / cs.SE)</a><br>Primary preprint layer for fast disclosure, timestamping, and community feedback.</div>
+          <div class="ref"><a href="https://quantum-journal.org" target="_blank" rel="noopener">Quantum Journal</a><br>Peer-reviewed venue for quantum algorithms, systems framing, and reproducible methods.</div>
+          <div class="ref"><a href="https://journals.aps.org/prxquantum/" target="_blank" rel="noopener">PRX Quantum</a><br>Top-tier quantum publication channel for higher-impact manuscript versions.</div>
+          <div class="ref"><a href="https://www.nature.com/npjqi/" target="_blank" rel="noopener">npj Quantum Information</a><br>High-visibility journal track when framing cross-disciplinary technical contribution.</div>
+          <div class="ref"><a href="https://pubs.aip.org/aip/apq" target="_blank" rel="noopener">AVS Quantum Science (AIP)</a><br>Applied quantum engineering and implementation-focused publication positioning.</div>
+          <div class="ref"><a href="https://www.ibm.com/quantum/research" target="_blank" rel="noopener">IBM Quantum Research</a><br>Industry-aligned benchmark and partnership context for practical utility narratives.</div>
+          <div class="ref"><a href="https://www.ibm.com/quantum/blog/riken-fugaku-qcsc" target="_blank" rel="noopener">IBM: RIKEN + Fugaku QCSC Closed Loop</a><br>Closed-loop quantum/HPC orchestration milestone used here as a benchmark narrative for cycle equations.</div>
+          <div class="ref"><a href="https://www.ibm.com/quantum/blog/networked-quantum-computers" target="_blank" rel="noopener">IBM: Networked Quantum Computers</a><br>QNU and quantum-network scale strategy reference for control-plane/server orchestration lanes.</div>
+          <div class="ref"><a href="https://www.ibm.com/quantum/blog" target="_blank" rel="noopener">IBM Quantum Blog (Live Updates)</a><br>Rolling announcement feed for graphing comparators, advantage claims, and benchmark updates.</div>
+          <div class="ref"><a href="https://www.npmjs.com/" target="_blank" rel="noopener">npm</a><br>JavaScript package distribution target for browser/Node modules and SDK surface.</div>
+          <div class="ref"><a href="https://pypi.org/" target="_blank" rel="noopener">PyPI</a><br>Python package distribution target for research tooling, automation, and CLI workflows.</div>
+          <div class="ref"><a href="https://crates.io/" target="_blank" rel="noopener">crates.io</a><br>Rust package distribution target for high-performance engine and systems components.</div>
+          <div class="ref"><a href="https://zenodo.org/" target="_blank" rel="noopener">Zenodo (DOI archival)</a><br>Immutable DOI for code/data snapshots tied to publication submissions and revisions.</div>
+          <div class="ref"><a href="https://spdx.org/licenses/" target="_blank" rel="noopener">SPDX License Registry</a><br>Canonical license naming for Apache-2.0/MIT/etc. and unambiguous downstream reuse.</div>
+          <div class="ref"><a href="https://www.quantamagazine.org" target="_blank" rel="noopener">Quanta Magazine</a><br>Narrative benchmark for broad-audience explainability after technical release.</div>
+        </div>
+        <section class="exec" aria-label="Release governance coverage">
+          <p class="kicker">Coverage: Config + Plugin + Rules + Artifacts + Codec</p>
+          <ul>
+            <li><strong>Config:</strong> publish versioned runtime/build config with reproducible defaults (`pyproject.toml`, lockfiles, model/provider matrix).</li>
+            <li><strong>Plugin + MCP:</strong> release plugin manifest, tool schema inventory, and capability guardrails with compatibility notes.</li>
+            <li><strong>Rulesets:</strong> include machine-readable policy/rules docs for safety, formatting scope, and deployment constraints.</li>
+            <li><strong>Artifacts:</strong> ship signed release artifacts with checksums, changelog, and DOI snapshot mapping.</li>
+            <li><strong>Codec specifics:</strong> document `.qbit` encode/decode mode, strip/reinject behavior, round-trip tests, and schema versioning.</li>
+          </ul>
+        </section>
+        <section class="exec" aria-label="Journal readiness metrics and execution timeline">
+          <p class="kicker">Journal + Product Readiness Metrics (Live)</p>
+          <ul>
+            <li><strong>Current state:</strong> page/readability + contribution framing ≈ <strong>85%</strong>; manuscript package readiness ≈ <strong>60–70%</strong>.</li>
+            <li><strong>Gap to submission:</strong> convert this launch paper into manuscript form (Abstract, Intro, Related Work, Methods, Experiments, Results, Limitations).</li>
+            <li><strong>Evidence gates:</strong> benchmark protocol, datasets/traces, hardware table, statistical reporting, claim→figure/table map.</li>
+            <li><strong>Policy gates:</strong> ORCID-linked authors, disclosures, cover letter, and venue-specific formatting checks.</li>
+          </ul>
+        </section>
+        <section class="exec" aria-label="Rough timeline to boardroom and journal track">
+          <p class="kicker">Rough Timeline (Boardroom Demo → Journal Submission)</p>
+          <ul>
+            <li><strong>Weeks 0–2:</strong> lock baseline metrics and reproducibility harness (`F_rt`, latency, failure-rate, memory precision).</li>
+            <li><strong>Weeks 2–6:</strong> run structured experiments across L0–L7 flows and finalize figures/tables for executive + reviewer audiences.</li>
+            <li><strong>Weeks 6–10:</strong> draft manuscript + supplement package, complete metadata/policy checks, prepare preprint and journal submission files.</li>
+            <li><strong>Weeks 10–12:</strong> submit preprint, start journal submission cycle, and align boardroom narrative to measured deltas.</li>
+          </ul>
+        </section>
+        <section class="exec" aria-label="Industry QPU benchmark board">
+          <p class="kicker">Industry QPU Comparison Board (Continuous Update Lane)</p>
+          <ul>
+            <li><strong>Comparator set:</strong> IBM, Quantinuum, IonQ, Rigetti, D-Wave, Xanadu, QuEra, Pasqal, IQM, PsiQuantum, Atom Computing, OQC, Alice &amp; Bob, Haiqu-linked claims.</li>
+            <li><strong>Track per company:</strong> hardware modality, public qubit scale, error/fidelity disclosures, runtime claims, SDK maturity, and publication cadence.</li>
+            <li><strong>Scoring model:</strong> normalize to common gates: utility evidence, reproducibility quality, deployment readiness, and partner validation.</li>
+            <li><strong>IBM lane anchor:</strong> use IBM Quantum research/publications and platform benchmark context as baseline reference for external parity checks.</li>
+          </ul>
+        </section>
+
+        <div class="cta">
+          <a class="btn" href="qbitos-main.qhtml">Open qbitos main</a>
+          <a class="btn" href="viewer.qhtml">Open universal viewer</a>
+          <a class="btn" href="ugrad-r0.html">Open μgrad runtime</a>
+        </div>
+        <p class="foot">Prepared as a launch-grade research landing surface for immediate deployment on ugrad.ai and mirrored “launching soon” distribution on qbitos.ai.</p>
+      </article>
+
+      <aside class="rail">
+        <h3>Quick Metadata</h3>
+        <div class="kv">
+          <b>Format</b><span>.qhtml / PWA</span>
+          <b>Audience</b><span>Research + product launch</span>
+          <b>Mode</b><span>Publication-style landing</span>
+          <b>Equation Key</b><span>Μμ communication cycle</span>
+          <b>Status</b><span>Launch candidate</span>
+        </div>
+        <details open>
+          <summary>Section: Abstract</summary>
+          <div class="d-body">Defines the macro-micro model and sets a publication-level narrative from the first block.</div>
+        </details>
+        <details>
+          <summary>Section: Equation Stack</summary>
+          <div class="d-body">Presents symbol and written forms for direct readability and implementation mapping.</div>
+        </details>
+        <details>
+          <summary>Section: Deployment</summary>
+          <div class="d-body">Explains why this structure is cross-platform, scroll-stable, and PWA-friendly.</div>
+        </details>
+        <details>
+          <summary>Section: Race Dynamics</summary>
+          <div class="d-body">Defines Bloch + mesh + dots as one shared waveform layer to expose coupled phase behavior.</div>
+        </details>
+        <details>
+          <summary>Section: Publication Targets</summary>
+          <div class="d-body">Maps peer-reviewed venues plus package/DOI/license endpoints for complete research-to-production release.</div>
+        </details>
+      </aside>
+    </section>
   </main>
+
+  <script>
+    // ===== QUANTUM PREFIX LIVE SYNC =====
+    try {
+      if (window.QuantumPrefixes && QuantumPrefixes.requestStateSync) {
+        QuantumPrefixes.requestStateSync();
+      }
+    } catch (_) {}
+
+    // Window size detection state for responsive/runtime consumers.
+    (function () {
+      function detectWindowState() {
+        var width = Math.max(window.innerWidth || 0, document.documentElement.clientWidth || 0);
+        var height = Math.max(window.innerHeight || 0, document.documentElement.clientHeight || 0);
+        var breakpoint = "lg";
+        if (width < 480) breakpoint = "xs";
+        else if (width < 768) breakpoint = "sm";
+        else if (width < 1024) breakpoint = "md";
+        var orientation = width >= height ? "landscape" : "portrait";
+
+        document.documentElement.setAttribute("data-window-size", breakpoint);
+        document.documentElement.setAttribute("data-window-orientation", orientation);
+        document.documentElement.style.setProperty("--window-width", String(width) + "px");
+        document.documentElement.style.setProperty("--window-height", String(height) + "px");
+
+        var detail = {
+          width: width,
+          height: height,
+          breakpoint: breakpoint,
+          orientation: orientation
+        };
+        window.__UGRAD_WINDOW_STATE__ = detail;
+        window.dispatchEvent(new CustomEvent("ugrad:window-size-change", { detail: detail }));
+      }
+
+      var resizeTimer;
+      function onResize() {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(detectWindowState, 90);
+      }
+
+      detectWindowState();
+      window.addEventListener("resize", onResize, { passive: true });
+      window.addEventListener("orientationchange", detectWindowState, { passive: true });
+
+      window.UgradWindowSize = {
+        getState: function () { return window.__UGRAD_WINDOW_STATE__ || null; },
+        recalc: detectWindowState
+      };
+    })();
+
+    // Diagram mode toggles (Block <-> Mermaid).
+    (function () {
+      var root = document.querySelector(".diag");
+      if (!root) return;
+      var tabs = root.querySelectorAll(".diag-tab");
+      var panels = root.querySelectorAll(".diag-board");
+      var actions = root.querySelectorAll(".diag-action");
+      var backdrop = root.querySelector("[data-diag-backdrop]");
+      var zoomReadouts = root.querySelectorAll("[data-diag-zoom-readout]");
+      if (!tabs.length || !panels.length) return;
+      var zoom = 1;
+      var minZoom = 0.8;
+      var maxZoom = 1.85;
+
+      function activePanel() {
+        for (var i = 0; i < panels.length; i++) {
+          if (panels[i].classList.contains("is-active")) return panels[i];
+        }
+        return null;
+      }
+
+      function activeScroller() {
+        var panel = activePanel();
+        if (!panel) return null;
+        return panel.querySelector(".diag-board-scroll") || panel;
+      }
+
+      function clamp(v, lo, hi) {
+        return Math.max(lo, Math.min(hi, v));
+      }
+
+      function setZoom(nextZoom, anchorEvent) {
+        var panel = activePanel();
+        var scroller = activeScroller();
+        var oldZoom = zoom;
+        zoom = clamp(nextZoom, minZoom, maxZoom);
+        if (!panel || !scroller || Math.abs(zoom - oldZoom) < 0.0001) {
+          applyZoom();
+          return;
+        }
+
+        // Keep cursor/touch point anchored while zooming.
+        if (anchorEvent && typeof anchorEvent.clientX === "number" && typeof anchorEvent.clientY === "number") {
+          var rect = scroller.getBoundingClientRect();
+          var localX = anchorEvent.clientX - rect.left;
+          var localY = anchorEvent.clientY - rect.top;
+          var contentX = scroller.scrollLeft + localX;
+          var contentY = scroller.scrollTop + localY;
+          var ratio = zoom / oldZoom;
+          applyZoom();
+          scroller.scrollLeft = contentX * ratio - localX;
+          scroller.scrollTop = contentY * ratio - localY;
+          return;
+        }
+
+        applyZoom();
+      }
+
+      function applyZoom() {
+        var panel = activePanel();
+        if (!panel) return;
+        var svg = panel.querySelector(".diag-svg");
+        if (!svg) {
+          for (var r0 = 0; r0 < zoomReadouts.length; r0++) {
+            zoomReadouts[r0].textContent = String(Math.round(zoom * 100)) + "%";
+          }
+          return;
+        }
+        svg.style.width = String(Math.round(zoom * 1000) / 10) + "%";
+        for (var r = 0; r < zoomReadouts.length; r++) {
+          zoomReadouts[r].textContent = String(Math.round(zoom * 100)) + "%";
+        }
+      }
+
+      function activate(view) {
+        for (var i = 0; i < tabs.length; i++) {
+          var isActive = tabs[i].getAttribute("data-diag-view") === view;
+          tabs[i].classList.toggle("is-active", isActive);
+          tabs[i].setAttribute("aria-pressed", isActive ? "true" : "false");
+        }
+        for (var j = 0; j < panels.length; j++) {
+          var panelView = panels[j].getAttribute("data-diag-panel");
+          panels[j].classList.toggle("is-active", panelView === view);
+        }
+        applyZoom();
+      }
+
+      for (var k = 0; k < tabs.length; k++) {
+        tabs[k].addEventListener("click", function (ev) {
+          var view = ev.currentTarget.getAttribute("data-diag-view");
+          activate(view || "blocks");
+        });
+      }
+
+      function setLarge(enabled) {
+        root.classList.toggle("is-large", !!enabled);
+        for (var p = 0; p < panels.length; p++) {
+          panels[p].classList.remove("is-dragging");
+        }
+        for (var i = 0; i < actions.length; i++) {
+          if (actions[i].getAttribute("data-diag-action") === "large") {
+            actions[i].classList.toggle("is-active", !!enabled);
+          }
+        }
+      }
+
+      for (var a = 0; a < actions.length; a++) {
+        actions[a].addEventListener("click", function (ev) {
+          var action = ev.currentTarget.getAttribute("data-diag-action");
+          if (action === "zoom-in") {
+            setZoom(zoom + 0.1);
+          } else if (action === "zoom-out") {
+            setZoom(zoom - 0.1);
+          } else if (action === "zoom-reset") {
+            setZoom(1);
+          }
+        });
+      }
+
+      // Click/tap any diagram surface to open large view.
+      var svgs = root.querySelectorAll(".diag-svg");
+      for (var si = 0; si < svgs.length; si++) {
+        svgs[si].addEventListener("click", function () {
+          if (!root.classList.contains("is-large")) setLarge(true);
+        });
+      }
+
+      if (backdrop) {
+        backdrop.addEventListener("click", function () {
+          setLarge(false);
+        });
+      }
+      window.addEventListener("keydown", function (ev) {
+        if (ev.key === "Escape" && root.classList.contains("is-large")) {
+          setLarge(false);
+        }
+      });
+
+      // Large-view grab/pan interaction (mouse + touch via Pointer Events).
+      var drag = {
+        active: false,
+        panel: null,
+        id: null,
+        startX: 0,
+        startY: 0,
+        startLeft: 0,
+        startTop: 0
+      };
+
+      function onPanStart(ev) {
+        var panel = ev.currentTarget;
+        var scroller = panel.querySelector(".diag-board-scroll") || panel;
+        if (!root.classList.contains("is-large")) return;
+        if (!panel.classList.contains("is-active")) return;
+        if (ev.pointerType === "mouse" && ev.button !== 0) return;
+        if (ev.target && ev.target.closest(".diag-board-controls")) return;
+        drag.active = true;
+        drag.panel = panel;
+        drag.id = ev.pointerId;
+        drag.startX = ev.clientX;
+        drag.startY = ev.clientY;
+        drag.startLeft = scroller.scrollLeft;
+        drag.startTop = scroller.scrollTop;
+        panel.classList.add("is-dragging");
+        if (panel.setPointerCapture) panel.setPointerCapture(ev.pointerId);
+        ev.preventDefault();
+      }
+
+      function onPanMove(ev) {
+        if (!drag.active || !drag.panel) return;
+        if (drag.id !== null && ev.pointerId !== drag.id) return;
+        var scroller = drag.panel.querySelector(".diag-board-scroll") || drag.panel;
+        var dx = ev.clientX - drag.startX;
+        var dy = ev.clientY - drag.startY;
+        scroller.scrollLeft = drag.startLeft - dx;
+        scroller.scrollTop = drag.startTop - dy;
+        ev.preventDefault();
+      }
+
+      function onPanEnd(ev) {
+        if (!drag.active || !drag.panel) return;
+        if (drag.id !== null && ev.pointerId !== drag.id) return;
+        var panel = drag.panel;
+        panel.classList.remove("is-dragging");
+        if (panel.releasePointerCapture && drag.id !== null) {
+          try { panel.releasePointerCapture(drag.id); } catch (_) {}
+        }
+        drag.active = false;
+        drag.panel = null;
+        drag.id = null;
+      }
+
+      function onWheelZoom(ev) {
+        var panel = ev.currentTarget;
+        if (!root.classList.contains("is-large")) return;
+        if (!panel.classList.contains("is-active")) return;
+        if (ev.target && ev.target.closest(".diag-board-controls")) return;
+        // Smooth wheel zoom: negative delta zooms in.
+        var factor = Math.exp(-ev.deltaY * 0.0015);
+        setZoom(zoom * factor, ev);
+        ev.preventDefault();
+      }
+
+      for (var pi = 0; pi < panels.length; pi++) {
+        panels[pi].addEventListener("pointerdown", onPanStart);
+        panels[pi].addEventListener("pointermove", onPanMove);
+        panels[pi].addEventListener("pointerup", onPanEnd);
+        panels[pi].addEventListener("pointercancel", onPanEnd);
+        panels[pi].addEventListener("lostpointercapture", onPanEnd);
+        panels[pi].addEventListener("wheel", onWheelZoom, { passive: false });
+      }
+
+      activate("blocks");
+      applyZoom();
+    })();
+
+    // Lightweight reactive dot field (header -> mid-body only).
+    (function () {
+      var canvas = document.getElementById("dots-layer");
+      if (!canvas) return;
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      var ctx = canvas.getContext("2d", { alpha: true });
+      if (!ctx) return;
+
+      var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      var points = [];
+      var pointRows = [];
+      var meshRows = [];
+      var spheres = [];
+      var mouse = { x: -9999, y: -9999, active: false };
+      var rafId = 0;
+
+      function buildPoints(width, height) {
+        points = [];
+        pointRows = [];
+        meshRows = [];
+        spheres = [];
+        var spacing = Math.max(26, Math.min(34, width / 28));
+        for (var y = 20; y < height - 10; y += spacing) {
+          var row = [];
+          for (var x = 20; x < width - 10; x += spacing) {
+            var dot = {
+              x: x,
+              y: y,
+              phase: (x * 0.013 + y * 0.009) % (Math.PI * 2)
+            };
+            points.push(dot);
+            row.push(dot);
+          }
+          pointRows.push(row);
+        }
+
+        // Torn-mesh rows (same layer as dots and spheres).
+        var rowCount = 4;
+        var meshStep = Math.max(68, width / 12);
+        for (var r = 0; r < rowCount; r++) {
+          var row = [];
+          var yBase = height * (0.58 + r * 0.12);
+          var xOffset = (r % 2) ? meshStep * 0.5 : 0;
+          for (var mx = -xOffset; mx <= width + meshStep; mx += meshStep) {
+            row.push({ x: mx, y: yBase, phase: (mx * 0.006 + r * 0.9) });
+          }
+          meshRows.push(row);
+        }
+
+        function nearestPoint(tx, ty) {
+          var best = points[0];
+          var bestD = Infinity;
+          for (var i = 0; i < points.length; i++) {
+            var p = points[i];
+            var dx = p.x - tx;
+            var dy = p.y - ty;
+            var d = dx * dx + dy * dy;
+            if (d < bestD) {
+              bestD = d;
+              best = p;
+            }
+          }
+          return best;
+        }
+
+        // Bloch-like sphere anchors tied to existing dot points.
+        spheres = [
+          { seed: nearestPoint(width * 0.24, height * 0.28), r: Math.min(width, height) * 0.15, phase: 0.4 },
+          { seed: nearestPoint(width * 0.68, height * 0.34), r: Math.min(width, height) * 0.17, phase: 1.2 }
+        ];
+      }
+
+      function displace(x, y, phase, t, strength) {
+        var wave = Math.sin(phase + t * 1.4 + x * 0.006) * 6 + Math.cos(phase * 0.8 + t + y * 0.005) * 3.5;
+        var px = x;
+        var py = y + wave * (strength || 1);
+        if (mouse.active) {
+          var dx = px - mouse.x;
+          var dy = py - mouse.y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          var radius = 130;
+          if (dist < radius && dist > 0.001) {
+            var force = (radius - dist) / radius;
+            px += (dx / dist) * force * 8;
+            py += (dy / dist) * force * 8;
+          }
+        }
+        return { x: px, y: py, wave: wave };
+      }
+
+      function drawBloch(t) {
+        ctx.shadowColor = "rgba(255,255,255,0.38)";
+        ctx.shadowBlur = 6;
+        for (var s = 0; s < spheres.length; s++) {
+          var sp = spheres[s];
+          var seed = sp.seed || { x: 0, y: 0, phase: 0 };
+          var c = displace(seed.x, seed.y, seed.phase + sp.phase, t, 0.75);
+          // Stretch axes from neighboring displaced points in the same field.
+          var sx = displace(seed.x + sp.r * 0.45, seed.y, seed.phase + sp.phase + 0.22, t, 0.75);
+          var sy = displace(seed.x, seed.y + sp.r * 0.45, seed.phase + sp.phase + 0.37, t, 0.75);
+          var stretchMix = 0;
+          if (mouse.active) {
+            var mdx = c.x - mouse.x;
+            var mdy = c.y - mouse.y;
+            var md = Math.sqrt(mdx * mdx + mdy * mdy);
+            stretchMix = Math.max(0, 1 - (md / 220));
+          }
+          var rawKx = Math.max(-0.20, Math.min(0.20, (sx.y - c.y) / 28));
+          var rawKy = Math.max(-0.20, Math.min(0.20, (sy.y - c.y) / 28));
+          // Keep circles neutral at start; stretch only under interaction force.
+          var kx = 1 + rawKx * stretchMix;
+          var ky = 1 + rawKy * stretchMix;
+          var rX = sp.r * kx;
+          var rY = sp.r * ky;
+
+          ctx.strokeStyle = "rgba(255, 255, 255, 0.68)";
+          ctx.lineWidth = 1.35;
+          ctx.beginPath();
+          ctx.ellipse(c.x, c.y, rX, rY, 0, 0, Math.PI * 2);
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.ellipse(c.x, c.y, rX, rY * 0.32, 0, 0, Math.PI * 2);
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.ellipse(c.x, c.y, rX * 0.58, rY, 0, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+        ctx.shadowBlur = 0;
+      }
+
+      function drawMesh(t) {
+        // Broken voxel-style triangles anchored to the dot lattice.
+        // Mix orientation + size per-cell and keep triangles stroke-only (no fill).
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.62)";
+        ctx.shadowColor = "rgba(255,255,255,0.32)";
+        ctx.shadowBlur = 4;
+        var h = canvas.height / dpr;
+
+        var startRow = Math.floor(pointRows.length * 0.56);
+        for (var r = startRow; r < pointRows.length - 1; r++) {
+          var upper = pointRows[r];
+          var lower = pointRows[r + 1];
+          var lim = Math.min(upper.length, lower.length);
+          for (var j = 1; j < lim; j += 2) {
+            // Intentionally skip some cells so the field feels torn/broken up.
+            if (((r + j) % 5) === 0 || ((r + j) % 7) === 0) continue;
+
+            var u0 = displace(upper[j - 1].x, upper[j - 1].y, upper[j - 1].phase + r * 0.22, t, 0.95);
+            var u1 = displace(upper[j].x, upper[j].y, upper[j].phase + r * 0.22, t, 0.95);
+            var l0 = displace(lower[j - 1].x, lower[j - 1].y, lower[j - 1].phase + r * 0.22, t, 0.95);
+            var l1 = displace(lower[j].x, lower[j].y, lower[j].phase + r * 0.22, t, 0.95);
+
+            // Alternate facing direction and vary scale in a stable deterministic pattern.
+            var orient = ((r + j) % 3 === 0) ? -1 : 1;
+            var sizeMix = 0.58 + (((r * 11 + j * 7) % 8) * 0.085); // ~0.58 .. 1.175
+            var a = orient > 0 ? u1 : u0;
+            var b = orient > 0 ? l1 : u1;
+            var c = orient > 0 ? l0 : l0;
+            var cx = (a.x + b.x + c.x) / 3;
+            var cy = (a.y + b.y + c.y) / 3;
+            var ax = cx + (a.x - cx) * sizeMix;
+            var ay = cy + (a.y - cy) * sizeMix;
+            var bx = cx + (b.x - cx) * sizeMix;
+            var by = cy + (b.y - cy) * sizeMix;
+            var cx2 = cx + (c.x - cx) * sizeMix;
+            var cy2 = cy + (c.y - cy) * sizeMix;
+            var yAvg = (ay + by + cy2) / 3;
+            var bottomFade = 1 - Math.min(1, Math.max(0, (yAvg - h * 0.46) / (h * 0.40)));
+            var strokeAlpha = 0.24 + (0.48 * bottomFade);
+            ctx.strokeStyle = "rgba(255, 255, 255," + strokeAlpha.toFixed(3) + ")";
+            ctx.lineWidth = 0.74 + (((r + j) % 4) * 0.18) * (0.70 + bottomFade * 0.40);
+
+            ctx.beginPath();
+            ctx.moveTo(ax, ay);
+            ctx.lineTo(bx, by);
+            ctx.lineTo(cx2, cy2);
+            ctx.closePath();
+            ctx.stroke();
+          }
+        }
+        ctx.shadowBlur = 0;
+      }
+
+      function resize() {
+        var rect = canvas.getBoundingClientRect();
+        canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+        canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        buildPoints(rect.width, rect.height);
+      }
+
+      function draw(ts) {
+        var t = ts * 0.001;
+        var w = canvas.width / dpr;
+        var h = canvas.height / dpr;
+        ctx.clearRect(0, 0, w, h);
+
+        drawBloch(t);
+        drawMesh(t);
+        for (var i = 0; i < points.length; i++) {
+          var p = points[i];
+          var d = displace(p.x, p.y, p.phase, t, 1);
+          var px = d.x;
+          var py = d.y;
+          var fade = 1 - Math.min(1, py / (h * 1.05));
+          var lowerSoft = 1 - Math.min(1, Math.max(0, (py - h * 0.44) / (h * 0.40)));
+          var pulse = 0.85 + Math.sin(t * 2.2 + p.phase * 3.5) * 0.15;
+          var alpha = (0.20 + fade * 0.42) * (0.64 + lowerSoft * 0.50) * pulse;
+          ctx.shadowColor = "rgba(255,255,255,0.44)";
+          ctx.shadowBlur = 7;
+          ctx.fillStyle = "rgba(255, 255, 255," + (alpha * 0.36).toFixed(3) + ")";
+          ctx.beginPath();
+          ctx.arc(px, py, 2.1, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.shadowBlur = 0;
+          ctx.fillStyle = "rgba(255, 255, 255," + alpha.toFixed(3) + ")";
+          ctx.beginPath();
+          ctx.arc(px, py, 1.36, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        rafId = window.requestAnimationFrame(draw);
+      }
+
+      function onMove(ev) {
+        var rect = canvas.getBoundingClientRect();
+        mouse.x = ev.clientX - rect.left;
+        mouse.y = ev.clientY - rect.top;
+        mouse.active = mouse.x >= 0 && mouse.x <= rect.width && mouse.y >= 0 && mouse.y <= rect.height;
+      }
+
+      function onLeave() {
+        mouse.active = false;
+      }
+
+      resize();
+      rafId = window.requestAnimationFrame(draw);
+      window.addEventListener("resize", resize, { passive: true });
+      window.addEventListener("pointermove", onMove, { passive: true });
+      window.addEventListener("pointerleave", onLeave, { passive: true });
+      document.addEventListener("visibilitychange", function () {
+        if (document.hidden) {
+          window.cancelAnimationFrame(rafId);
+        } else {
+          window.cancelAnimationFrame(rafId);
+          rafId = window.requestAnimationFrame(draw);
+        }
+      });
+    })();
+
+    // Live equation->figure plots with fast link-aware fallback.
+    (function () {
+      var plots = Array.prototype.slice.call(document.querySelectorAll(".eq-live-plot"));
+      if (!plots.length) return;
+      var modeBadge = document.getElementById("eq-link-mode");
+      var optButtons = Array.prototype.slice.call(document.querySelectorAll(".eq-matrix-opt"));
+
+      var chartPacks = {
+        "default": ["network", "line", "scatter", "heatmap", "matrix", "circuit"],
+        "bloch":   ["bloch", "line", "scatter", "heatmap", "matrix", "circuit"],
+        "cube":    ["network", "line", "cube", "heatmap", "matrix", "circuit"],
+        "circuit": ["circuit", "line", "scatter", "heatmap", "matrix", "circuit"]
+      };
+
+      var state = {
+        line: [0.47, 0.50, 0.53, 0.57, 0.61, 0.66, 0.70],
+        scatter: [9, 15, 28, 40, 64, 92, 130, 188, 260, 330],
+        matrix: [
+          [0.86, 0.17, 0.12, 0.09],
+          [0.20, 0.82, 0.23, 0.11],
+          [0.13, 0.28, 0.78, 0.21],
+          [0.11, 0.17, 0.26, 0.84]
+        ],
+        frt: 0.983,
+        qw: 0.79,
+        latency: 42,
+        cycleScore: 0.88
+      };
+
+      for (var pi = 0; pi < plots.length; pi++) {
+        var p = plots[pi];
+        p.setAttribute("data-default-plot", p.getAttribute("data-plot") || "");
+      }
+
+      function setActivePackButton(pack) {
+        for (var bi = 0; bi < optButtons.length; bi++) {
+          var btn = optButtons[bi];
+          var on = btn.getAttribute("data-chart-pack") === pack;
+          btn.classList.toggle("is-active", !!on);
+        }
+      }
+
+      function applyChartPack(pack) {
+        var seq = chartPacks[pack] || chartPacks["default"];
+        for (var i = 0; i < plots.length; i++) {
+          plots[i].setAttribute("data-plot", seq[i] || plots[i].getAttribute("data-default-plot"));
+        }
+        setActivePackButton(pack);
+      }
+
+      function normalizedLinkType(raw) {
+        if (!raw) return "";
+        var key = String(raw).toLowerCase().replace(/[_\s-]+/g, "");
+        if (key === "wifi") return "wifi";
+        if (key === "cellular" || key === "mobile" || key === "4g" || key === "3g" || key === "2g" || key === "slow2g") return "cellular";
+        if (key === "ble" || key === "bluetooth") return "ble";
+        if (key === "tethered" || key === "hotspot" || key === "usb") return "tethered";
+        if (key === "mesh") return "mesh";
+        if (key === "direct" || key === "lan" || key === "local") return "direct";
+        return "";
+      }
+
+      function detectLinkType() {
+        var qp = null;
+        try {
+          qp = new URLSearchParams(window.location.search);
+        } catch (e) {}
+        var queryValue = qp ? normalizedLinkType(qp.get("link")) : "";
+        if (queryValue) return queryValue;
+        var storedValue = normalizedLinkType(window.localStorage && localStorage.getItem("ugrad-link-type"));
+        if (storedValue) return storedValue;
+
+        var host = String(window.location.hostname || "").toLowerCase();
+        if (!host || host === "localhost" || host === "127.0.0.1" || host === "::1" || window.location.protocol === "file:") {
+          return "direct";
+        }
+        if (/^172\.20\.10\./.test(host) || /^192\.168\.43\./.test(host) || /^192\.168\.8\./.test(host)) {
+          return "tethered";
+        }
+        if (/\.local$/.test(host) || /^169\.254\./.test(host)) {
+          return "mesh";
+        }
+        if (navigator.onLine === false) return "mesh";
+
+        var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        if (conn) {
+          var type = normalizedLinkType(conn.type);
+          if (type) return type;
+          var eff = String(conn.effectiveType || "").toLowerCase();
+          var saveData = !!conn.saveData;
+          var down = typeof conn.downlink === "number" ? conn.downlink : null;
+          var rtt = typeof conn.rtt === "number" ? conn.rtt : null;
+          if (saveData || eff === "slow-2g" || eff === "2g" || eff === "3g") return "cellular";
+          if ((down !== null && down < 1.8) || (rtt !== null && rtt > 220)) return "cellular";
+        }
+        return "wifi";
+      }
+
+      function shouldUseFallback(linkType) {
+        if (!linkType) return false;
+        if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return true;
+        return linkType === "cellular" || linkType === "ble" || linkType === "tethered" || linkType === "mesh";
+      }
+
+      function mountImageFallback(canvas) {
+        if (!canvas || !canvas.parentNode) return;
+        var src = canvas.getAttribute("data-fallback-src");
+        if (!src) return;
+        var img = document.createElement("img");
+        img.className = "eq-live-fallback";
+        img.src = src;
+        img.alt = canvas.getAttribute("aria-label") || "Equation fallback chart";
+        img.loading = "eager";
+        img.decoding = "async";
+        canvas.parentNode.replaceChild(img, canvas);
+      }
+
+      function resizeCanvas(canvas) {
+        var rect = canvas.getBoundingClientRect();
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        var w = Math.max(1, Math.floor(rect.width));
+        var h = Math.max(1, Math.floor(rect.height));
+        if (canvas.width !== Math.floor(w * dpr) || canvas.height !== Math.floor(h * dpr)) {
+          canvas.width = Math.floor(w * dpr);
+          canvas.height = Math.floor(h * dpr);
+        }
+        var ctx = canvas.getContext("2d");
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        return { ctx: ctx, w: w, h: h };
+      }
+
+      function clear(ctx, w, h) {
+        ctx.clearRect(0, 0, w, h);
+        ctx.fillStyle = "rgba(241,247,255,0.9)";
+        ctx.fillRect(0, 0, w, h);
+      }
+
+      function getPlotFrame(w, h) {
+        return { left: 48, right: w - 12, top: 14, bottom: h - 34 };
+      }
+
+      function mapX(frame, t) {
+        return frame.left + t * (frame.right - frame.left);
+      }
+
+      function mapY(frame, t) {
+        return frame.bottom - t * (frame.bottom - frame.top);
+      }
+
+      function drawAxes(ctx, w, h, frame) {
+        ctx.strokeStyle = "rgba(92,128,176,0.45)";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(frame.left, frame.bottom);
+        ctx.lineTo(frame.right, frame.bottom);
+        ctx.moveTo(frame.left, frame.bottom);
+        ctx.lineTo(frame.left, frame.top);
+        ctx.stroke();
+      }
+
+      function drawSideScale(ctx, w, h, canvas, frame) {
+        var yMin = Number(canvas.getAttribute("data-y-min"));
+        var yMax = Number(canvas.getAttribute("data-y-max"));
+        var unit = canvas.getAttribute("data-y-unit") || "";
+        var xLabel = canvas.getAttribute("data-x-label") || "";
+        if (!isFinite(yMin) || !isFinite(yMax)) return;
+        var ticks = 4;
+        ctx.fillStyle = "rgba(69,95,136,.82)";
+        ctx.font = "600 9px ui-monospace, SFMono-Regular, Menlo, monospace";
+        ctx.textAlign = "right";
+        ctx.textBaseline = "middle";
+        for (var i = 0; i <= ticks; i++) {
+          var t = i / ticks;
+          var y = mapY(frame, t);
+          var v = yMin + (yMax - yMin) * t;
+          var label = Math.abs(v) < 10 ? v.toFixed(2) : Math.round(v).toString();
+          ctx.fillText(label, frame.left - 4, y);
+          ctx.strokeStyle = "rgba(110,147,198,0.18)";
+          ctx.beginPath();
+          ctx.moveTo(frame.left, y);
+          ctx.lineTo(frame.right, y);
+          ctx.stroke();
+        }
+        ctx.textBaseline = "top";
+        for (var j = 0; j <= ticks; j++) {
+          var tx = j / ticks;
+          var xv = mapX(frame, tx);
+          ctx.textAlign = "center";
+          ctx.fillStyle = "rgba(69,95,136,.66)";
+          ctx.fillText(tx.toFixed(2), xv, frame.bottom + 4);
+        }
+        ctx.textAlign = "left";
+        ctx.fillStyle = "rgba(69,95,136,.72)";
+        if (unit) ctx.fillText(unit, frame.left + 2, 4);
+        if (xLabel) ctx.fillText(xLabel, frame.left + 2, frame.bottom + 15);
+      }
+
+      function drawNetwork(ctx, w, h, t) {
+        clear(ctx, w, h);
+        var frame = getPlotFrame(w, h);
+        var nodes = [
+          [mapX(frame, 0.12), mapY(frame, 0.78)], [mapX(frame, 0.34), mapY(frame, 0.82)], [mapX(frame, 0.56), mapY(frame, 0.78)], [mapX(frame, 0.78), mapY(frame, 0.74)],
+          [mapX(frame, 0.18), mapY(frame, 0.28)], [mapX(frame, 0.44), mapY(frame, 0.32)], [mapX(frame, 0.66), mapY(frame, 0.28)]
+        ];
+        var links = [[0,1],[1,2],[2,3],[0,4],[1,4],[1,5],[2,5],[2,6],[5,6]];
+        ctx.strokeStyle = "rgba(96,142,208,0.7)";
+        ctx.lineWidth = 1.2;
+        for (var i = 0; i < links.length; i++) {
+          var a = nodes[links[i][0]], b = nodes[links[i][1]];
+          ctx.beginPath();
+          ctx.moveTo(a[0], a[1]);
+          ctx.lineTo(b[0], b[1]);
+          ctx.stroke();
+        }
+        for (var j = 0; j < nodes.length; j++) {
+          var n = nodes[j];
+          var p = 0.5 + 0.5 * Math.sin(t * 2 + j * 0.7);
+          ctx.fillStyle = "rgba(82,140,220," + (0.45 + p * 0.45).toFixed(3) + ")";
+          ctx.beginPath();
+          ctx.arc(n[0], n[1], 4 + p * 2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function drawBlochPlot(ctx, w, h, t, canvas) {
+        clear(ctx, w, h);
+        var frame = getPlotFrame(w, h);
+        drawAxes(ctx, w, h, frame);
+        drawSideScale(ctx, w, h, canvas, frame);
+        var cx = frame.left + (frame.right - frame.left) * 0.52;
+        var cy = frame.top + (frame.bottom - frame.top) * 0.50;
+        var r = Math.min(frame.right - frame.left, frame.bottom - frame.top) * 0.36;
+        ctx.strokeStyle = "rgba(104,143,205,.7)";
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, r * 0.98, r * 0.34, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(cx - r, cy);
+        ctx.lineTo(cx + r, cy);
+        ctx.moveTo(cx, cy - r);
+        ctx.lineTo(cx, cy + r);
+        ctx.stroke();
+        var vx = cx + Math.cos(t * 1.15) * r * 0.8;
+        var vy = cy - Math.sin(t * 1.45) * r * 0.64;
+        ctx.strokeStyle = "rgba(82,140,220,.9)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(vx, vy);
+        ctx.stroke();
+        ctx.fillStyle = "rgba(124,107,226,.95)";
+        ctx.beginPath();
+        ctx.arc(vx, vy, 4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      function drawCubePlot(ctx, w, h, t, canvas) {
+        clear(ctx, w, h);
+        var frame = getPlotFrame(w, h);
+        drawAxes(ctx, w, h, frame);
+        drawSideScale(ctx, w, h, canvas, frame);
+        var cx = frame.left + (frame.right - frame.left) * 0.52;
+        var cy = frame.top + (frame.bottom - frame.top) * 0.52;
+        var s = Math.min(frame.right - frame.left, frame.bottom - frame.top) * 0.28;
+        var a = t * 0.8;
+        function proj(x, y, z) {
+          var xr = x * Math.cos(a) - z * Math.sin(a);
+          var zr = x * Math.sin(a) + z * Math.cos(a);
+          var yr = y * Math.cos(a * 0.7) - zr * Math.sin(a * 0.7);
+          var zr2 = y * Math.sin(a * 0.7) + zr * Math.cos(a * 0.7);
+          var p = s / (zr2 + 3.2);
+          return [cx + xr * p, cy + yr * p];
+        }
+        var verts = [
+          [-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],
+          [-1,-1, 1],[1,-1, 1],[1,1, 1],[-1,1, 1]
+        ];
+        var pts = [];
+        for (var i = 0; i < verts.length; i++) pts.push(proj(verts[i][0], verts[i][1], verts[i][2]));
+        var edges = [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+        ctx.strokeStyle = "rgba(93,144,212,.76)";
+        ctx.lineWidth = 1.2;
+        for (var e = 0; e < edges.length; e++) {
+          var p0 = pts[edges[e][0]], p1 = pts[edges[e][1]];
+          ctx.beginPath();
+          ctx.moveTo(p0[0], p0[1]);
+          ctx.lineTo(p1[0], p1[1]);
+          ctx.stroke();
+        }
+        for (var j = 0; j < pts.length; j++) {
+          var q = pts[j];
+          ctx.fillStyle = "rgba(124,107,226,.9)";
+          ctx.beginPath();
+          ctx.arc(q[0], q[1], 2.7, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function drawLine(ctx, w, h, t, canvas) {
+        clear(ctx, w, h);
+        var frame = getPlotFrame(w, h);
+        drawAxes(ctx, w, h, frame);
+        drawSideScale(ctx, w, h, canvas, frame);
+        var vals = state.line;
+        ctx.strokeStyle = "rgba(82,140,220,0.92)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        for (var i = 0; i < vals.length; i++) {
+          var x = mapX(frame, i / (vals.length - 1));
+          var wobble = Math.sin(t * 1.1 + i * 0.8) * 1.2;
+          var y = mapY(frame, (vals[i] - 0.42) / 0.32) + wobble;
+          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      }
+
+      function drawScatter(ctx, w, h, t, canvas) {
+        clear(ctx, w, h);
+        var frame = getPlotFrame(w, h);
+        drawAxes(ctx, w, h, frame);
+        drawSideScale(ctx, w, h, canvas, frame);
+        var d = state.scatter;
+        for (var i = 0; i < d.length; i++) {
+          var x = mapX(frame, Math.log(d[i]) / Math.log(d[d.length - 1]));
+          var y = mapY(frame, (i + 1) / (d.length + 2)) + Math.sin(t + i) * 2;
+          ctx.fillStyle = "rgba(124,107,226,0.75)";
+          ctx.beginPath();
+          ctx.arc(x, y, 2.3 + (i % 3), 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function drawHeatmap(ctx, w, h, t, canvas) {
+        clear(ctx, w, h);
+        var frame = getPlotFrame(w, h);
+        drawAxes(ctx, w, h, frame);
+        drawSideScale(ctx, w, h, canvas, frame);
+        var cols = 8, rows = 5;
+        var cw = (frame.right - frame.left) / cols, ch = (frame.bottom - frame.top) / rows;
+        for (var r = 0; r < rows; r++) {
+          for (var c = 0; c < cols; c++) {
+            var v = 0.5 + 0.5 * Math.sin(t * 1.2 + r * 0.8 + c * 0.6);
+            var alpha = 0.18 + v * 0.68;
+            ctx.fillStyle = "rgba(86,145,220," + alpha.toFixed(3) + ")";
+            ctx.fillRect(frame.left + c * cw + 1, frame.top + r * ch + 1, cw - 2, ch - 2);
+          }
+        }
+      }
+
+      function drawMatrix(ctx, w, h, t, canvas) {
+        clear(ctx, w, h);
+        var frame = getPlotFrame(w, h);
+        drawAxes(ctx, w, h, frame);
+        drawSideScale(ctx, w, h, canvas, frame);
+        var m = state.matrix;
+        var n = m.length;
+        var cell = Math.min((frame.right - frame.left) / n, (frame.bottom - frame.top) / n);
+        var ox = frame.left + ((frame.right - frame.left) - cell * n) / 2;
+        var oy = frame.top + ((frame.bottom - frame.top) - cell * n) / 2;
+        for (var r = 0; r < n; r++) {
+          for (var c = 0; c < n; c++) {
+            var v = m[r][c];
+            var pulse = 0.06 * (0.5 + 0.5 * Math.sin(t * 1.6 + r + c));
+            ctx.fillStyle = "rgba(88,146,222," + (0.12 + v * 0.8 + pulse).toFixed(3) + ")";
+            ctx.fillRect(ox + c * cell + 1, oy + r * cell + 1, cell - 2, cell - 2);
+          }
+        }
+      }
+
+      function drawCircuit(ctx, w, h, t, canvas) {
+        clear(ctx, w, h);
+        var frame = getPlotFrame(w, h);
+        drawAxes(ctx, w, h, frame);
+        drawSideScale(ctx, w, h, canvas, frame);
+        var rows = 4;
+        for (var r = 0; r < rows; r++) {
+          var y = frame.top + r * ((frame.bottom - frame.top) / (rows - 1));
+          ctx.strokeStyle = "rgba(92,128,176,0.7)";
+          ctx.beginPath();
+          ctx.moveTo(frame.left, y);
+          ctx.lineTo(frame.right, y);
+          ctx.stroke();
+        }
+        for (var q = 0; q < 7; q++) {
+          var x = frame.left + q * ((frame.right - frame.left) / 6);
+          var y0 = frame.top + ((q % rows) * ((frame.bottom - frame.top) / (rows - 1)));
+          ctx.fillStyle = "rgba(124,107,226,0.82)";
+          ctx.fillRect(x - 9, y0 - 8, 18, 16);
+          if (q % 2 === 0) {
+            var y1 = frame.top + (((q + 1) % rows) * ((frame.bottom - frame.top) / (rows - 1)));
+            ctx.strokeStyle = "rgba(82,140,220,0.82)";
+            ctx.beginPath();
+            ctx.moveTo(x, y0);
+            ctx.lineTo(x, y1);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(x, y1, 3 + 1.2 * Math.abs(Math.sin(t + q)), 0, Math.PI * 2);
+            ctx.fillStyle = "rgba(82,140,220,0.9)";
+            ctx.fill();
+          }
+        }
+      }
+
+      var linkType = detectLinkType();
+      var fallbackMode = shouldUseFallback(linkType);
+      if (modeBadge) {
+        modeBadge.textContent = fallbackMode ? (linkType + " fallback") : (linkType + " live");
+      }
+      applyChartPack("default");
+      for (var ob = 0; ob < optButtons.length; ob++) {
+        (function (btn) {
+          btn.addEventListener("click", function () {
+            if (fallbackMode) return;
+            var pack = btn.getAttribute("data-chart-pack") || "default";
+            applyChartPack(pack);
+          });
+        })(optButtons[ob]);
+      }
+      if (fallbackMode) {
+        for (var od = 0; od < optButtons.length; od++) optButtons[od].setAttribute("disabled", "disabled");
+        for (var fi = 0; fi < plots.length; fi++) mountImageFallback(plots[fi]);
+        window.UgradEquationFigures = {
+          data: state,
+          linkType: linkType,
+          renderMode: "fallback",
+          chartPack: "default",
+          setChartPack: function () {},
+          setData: function (patch) {
+            if (!patch || typeof patch !== "object") return;
+            for (var kf in patch) {
+              if (Object.prototype.hasOwnProperty.call(patch, kf)) state[kf] = patch[kf];
+            }
+          },
+          ingestRun: function (run) {
+            if (!run || typeof run !== "object") return;
+            if (Array.isArray(run.line)) state.line = run.line.slice(0);
+            if (Array.isArray(run.scatter)) state.scatter = run.scatter.slice(0);
+            if (Array.isArray(run.matrix)) state.matrix = run.matrix.slice(0);
+            if (typeof run.frt === "number") state.frt = run.frt;
+            if (typeof run.qw === "number") state.qw = run.qw;
+            if (typeof run.latency === "number") state.latency = run.latency;
+            if (typeof run.cycleScore === "number") state.cycleScore = run.cycleScore;
+          }
+        };
+        return;
+      }
+
+      function render(ts) {
+        var t = (ts || 0) * 0.001;
+        for (var i = 0; i < plots.length; i++) {
+          var canvas = plots[i];
+          var plot = canvas.getAttribute("data-plot");
+          var g = resizeCanvas(canvas);
+          if (!g.ctx) continue;
+          if (plot === "network") {
+            drawNetwork(g.ctx, g.w, g.h, t);
+            var frame = getPlotFrame(g.w, g.h);
+            drawAxes(g.ctx, g.w, g.h, frame);
+            drawSideScale(g.ctx, g.w, g.h, canvas, frame);
+          }
+          else if (plot === "bloch") drawBlochPlot(g.ctx, g.w, g.h, t, canvas);
+          else if (plot === "cube") drawCubePlot(g.ctx, g.w, g.h, t, canvas);
+          else if (plot === "line") drawLine(g.ctx, g.w, g.h, t, canvas);
+          else if (plot === "scatter") drawScatter(g.ctx, g.w, g.h, t, canvas);
+          else if (plot === "heatmap") drawHeatmap(g.ctx, g.w, g.h, t, canvas);
+          else if (plot === "matrix") drawMatrix(g.ctx, g.w, g.h, t, canvas);
+          else if (plot === "circuit") drawCircuit(g.ctx, g.w, g.h, t, canvas);
+        }
+        window.requestAnimationFrame(render);
+      }
+
+      window.UgradEquationFigures = {
+        data: state,
+        linkType: linkType,
+        renderMode: "live",
+        chartPack: "default",
+        setChartPack: function (pack) {
+          applyChartPack(pack || "default");
+          this.chartPack = pack || "default";
+        },
+        setData: function (patch) {
+          if (!patch || typeof patch !== "object") return;
+          for (var k in patch) {
+            if (Object.prototype.hasOwnProperty.call(patch, k)) state[k] = patch[k];
+          }
+        },
+        ingestRun: function (run) {
+          if (!run || typeof run !== "object") return;
+          if (Array.isArray(run.line)) state.line = run.line.slice(0);
+          if (Array.isArray(run.scatter)) state.scatter = run.scatter.slice(0);
+          if (Array.isArray(run.matrix)) state.matrix = run.matrix.slice(0);
+          if (typeof run.frt === "number") state.frt = run.frt;
+          if (typeof run.qw === "number") state.qw = run.qw;
+          if (typeof run.latency === "number") state.latency = run.latency;
+          if (typeof run.cycleScore === "number") state.cycleScore = run.cycleScore;
+        }
+      };
+
+      window.addEventListener("resize", function () { render(0); }, { passive: true });
+      render(0);
+    })();
+
+    // Mini equation visuals + matrix Bloch overlay.
+    (function () {
+      var miniCanvases = Array.prototype.slice.call(document.querySelectorAll(".eq-mini-canvas"));
+      var matrixBloch = document.querySelector(".eq-matrix-bloch");
+      if (!miniCanvases.length && !matrixBloch) return;
+      var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+      function setupCanvas(canvas) {
+        if (!canvas) return null;
+        var rect = canvas.getBoundingClientRect();
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        var w = Math.max(1, Math.floor(rect.width));
+        var h = Math.max(1, Math.floor(rect.height));
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        var ctx = canvas.getContext("2d");
+        if (!ctx) return null;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        return { ctx: ctx, w: w, h: h };
+      }
+
+      function fallbackToImage(canvas) {
+        if (!canvas || !canvas.parentNode) return;
+        var src = canvas.getAttribute("data-fallback-src");
+        if (!src) return;
+        var img = document.createElement("img");
+        img.className = "eq-mini-img";
+        img.src = src;
+        img.alt = canvas.getAttribute("aria-label") || "Equation chart";
+        canvas.parentNode.replaceChild(img, canvas);
+      }
+
+      function drawBlochCycle(ctx, w, h, t) {
+        ctx.clearRect(0, 0, w, h);
+        ctx.fillStyle = "rgba(245,250,255,.95)";
+        ctx.fillRect(0, 0, w, h);
+        var cx = w * 0.34;
+        var cy = h * 0.52;
+        var r = Math.min(w, h) * 0.31;
+        ctx.strokeStyle = "rgba(102,140,198,.55)";
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, r * 0.96, r * 0.34, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(cx - r, cy);
+        ctx.lineTo(cx + r, cy);
+        ctx.moveTo(cx, cy - r);
+        ctx.lineTo(cx, cy + r);
+        ctx.stroke();
+        var angle = t * 0.9;
+        var vx = cx + Math.cos(angle) * r * 0.78;
+        var vy = cy - Math.sin(angle * 1.35) * r * 0.62;
+        ctx.strokeStyle = "rgba(82,140,220,.88)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(vx, vy);
+        ctx.stroke();
+        ctx.fillStyle = "rgba(124,107,226,.95)";
+        ctx.beginPath();
+        ctx.arc(vx, vy, 4.2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Right-side cycle lanes (detect/decode/render/enhance) as moving links.
+        var lx = w * 0.62;
+        var ly = h * 0.24;
+        var step = h * 0.15;
+        ctx.fillStyle = "rgba(76,104,148,.82)";
+        ctx.font = "600 9px ui-monospace, SFMono-Regular, Menlo, monospace";
+        var labels = ["T", "D", "R", "E"];
+        for (var i = 0; i < labels.length; i++) {
+          var y = ly + i * step;
+          ctx.strokeStyle = "rgba(111,148,202,.45)";
+          ctx.strokeRect(lx, y, w * 0.16, h * 0.1);
+          ctx.fillText(labels[i], lx + 6, y + h * 0.065);
+        }
+        var pulse = Math.floor((t * 2.2) % 4);
+        ctx.fillStyle = "rgba(82,140,220,.15)";
+        ctx.fillRect(lx, ly + pulse * step, w * 0.16, h * 0.1);
+      }
+
+      function project3D(v, rx, ry, rz, scale, ox, oy) {
+        var x = v[0], y = v[1], z = v[2];
+        var cx = Math.cos(rx), sx = Math.sin(rx);
+        var cy = Math.cos(ry), sy = Math.sin(ry);
+        var cz = Math.cos(rz), sz = Math.sin(rz);
+        var y1 = y * cx - z * sx;
+        var z1 = y * sx + z * cx;
+        var x2 = x * cy + z1 * sy;
+        var z2 = -x * sy + z1 * cy;
+        var x3 = x2 * cz - y1 * sz;
+        var y3 = x2 * sz + y1 * cz;
+        var p = scale / (z2 + 3.4);
+        return [ox + x3 * p, oy + y3 * p, z2];
+      }
+
+      function drawMiniAxes(ctx, w, h, canvas) {
+        var xMin = Number(canvas.getAttribute("data-mini-x-min"));
+        var xMax = Number(canvas.getAttribute("data-mini-x-max"));
+        var yMin = Number(canvas.getAttribute("data-mini-y-min"));
+        var yMax = Number(canvas.getAttribute("data-mini-y-max"));
+        if (!isFinite(xMin) || !isFinite(xMax) || !isFinite(yMin) || !isFinite(yMax)) return null;
+        var frame = { left: 34, right: w - 10, top: 8, bottom: h - 22 };
+        var ticks = 4;
+        ctx.strokeStyle = "rgba(116,146,196,.48)";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(frame.left, frame.bottom);
+        ctx.lineTo(frame.right, frame.bottom);
+        ctx.moveTo(frame.left, frame.bottom);
+        ctx.lineTo(frame.left, frame.top);
+        ctx.stroke();
+        ctx.font = "600 8px ui-monospace, SFMono-Regular, Menlo, monospace";
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "right";
+        for (var i = 0; i <= ticks; i++) {
+          var ty = i / ticks;
+          var y = frame.bottom - ty * (frame.bottom - frame.top);
+          var vv = yMin + (yMax - yMin) * ty;
+          ctx.fillStyle = "rgba(76,104,148,.82)";
+          ctx.fillText(vv.toFixed(2), frame.left - 3, y);
+          ctx.strokeStyle = "rgba(116,146,196,.18)";
+          ctx.beginPath();
+          ctx.moveTo(frame.left, y);
+          ctx.lineTo(frame.right, y);
+          ctx.stroke();
+        }
+        ctx.textBaseline = "top";
+        ctx.textAlign = "center";
+        for (var j = 0; j <= ticks; j++) {
+          var tx = j / ticks;
+          var x = frame.left + tx * (frame.right - frame.left);
+          var xv = xMin + (xMax - xMin) * tx;
+          ctx.fillStyle = "rgba(76,104,148,.72)";
+          ctx.fillText(xv.toFixed(2), x, frame.bottom + 3);
+        }
+        return frame;
+      }
+
+      function drawCubePointsStatic(ctx, w, h, canvas) {
+        ctx.clearRect(0, 0, w, h);
+        ctx.fillStyle = "rgba(245,250,255,.95)";
+        ctx.fillRect(0, 0, w, h);
+        var frame = drawMiniAxes(ctx, w, h, canvas) || { left: 10, right: w - 10, top: 8, bottom: h - 8 };
+        var verts = [
+          [-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],
+          [-1,-1, 1],[1,-1, 1],[1,1, 1],[-1,1, 1]
+        ];
+        var edges = [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+        var pts = [];
+        var cx = frame.left + (frame.right - frame.left) * 0.42;
+        var cy = frame.top + (frame.bottom - frame.top) * 0.52;
+        var scale = Math.min(frame.right - frame.left, frame.bottom - frame.top) * 0.92;
+        for (var i = 0; i < verts.length; i++) {
+          pts.push(project3D(verts[i], 0.72, 0.88, 0.28, scale, cx, cy));
+        }
+        ctx.strokeStyle = "rgba(93,144,212,.72)";
+        ctx.lineWidth = 1.3;
+        for (var e = 0; e < edges.length; e++) {
+          var a = pts[edges[e][0]], b = pts[edges[e][1]];
+          ctx.beginPath();
+          ctx.moveTo(a[0], a[1]);
+          ctx.lineTo(b[0], b[1]);
+          ctx.stroke();
+        }
+        for (var p = 0; p < pts.length; p++) {
+          var q = pts[p];
+          ctx.fillStyle = "rgba(124,107,226,0.86)";
+          ctx.beginPath();
+          ctx.arc(q[0], q[1], 3.1, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        // Static alignment timeline marker rail on right.
+        ctx.fillStyle = "rgba(76,104,148,.82)";
+        ctx.font = "600 8px ui-monospace, SFMono-Regular, Menlo, monospace";
+        var x0 = frame.left + (frame.right - frame.left) * 0.62;
+        var y0 = frame.top + 6;
+        var len = (frame.right - frame.left) * 0.35;
+        ctx.strokeStyle = "rgba(130,161,208,.55)";
+        ctx.beginPath();
+        ctx.moveTo(x0, y0);
+        ctx.lineTo(x0 + len, y0);
+        ctx.moveTo(x0, y0 + 22);
+        ctx.lineTo(x0 + len, y0 + 22);
+        ctx.stroke();
+        ctx.fillStyle = "rgba(82,140,220,.9)";
+        ctx.fillRect(x0 + len * 0.56 - 2, y0 - 4, 4, 30);
+      }
+
+      function drawMatrixBloch(ctx, w, h, t) {
+        ctx.clearRect(0, 0, w, h);
+        var cx = w * 0.82;
+        var cy = h * 0.18;
+        var r = Math.min(w, h) * 0.09;
+        ctx.strokeStyle = "rgba(104,143,205,.22)";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, r * 0.95, r * 0.35, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        for (var i = 0; i < 24; i++) {
+          var a = i * (Math.PI * 2 / 24) + t * 0.25;
+          var rr = r * (0.42 + (i % 5) * 0.12);
+          var x = cx + Math.cos(a) * rr;
+          var y = cy + Math.sin(a * 1.3) * rr * 0.6;
+          var op = 0.10 + 0.16 * (0.5 + 0.5 * Math.sin(t * 1.8 + i));
+          ctx.fillStyle = "rgba(92,136,212," + op.toFixed(3) + ")";
+          ctx.beginPath();
+          ctx.arc(x, y, 1.4, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function frame(ts) {
+        var t = (ts || 0) * 0.001;
+        for (var i = 0; i < miniCanvases.length; i++) {
+          var c = miniCanvases[i];
+          var g = setupCanvas(c);
+          if (!g) { fallbackToImage(c); continue; }
+          var mode = c.getAttribute("data-mini-plot");
+          if (mode === "bloch-cycle") drawBlochCycle(g.ctx, g.w, g.h, t);
+          else if (mode === "cube-points-static") drawCubePointsStatic(g.ctx, g.w, g.h, c);
+        }
+        if (matrixBloch) {
+          var mg = setupCanvas(matrixBloch);
+          if (mg) drawMatrixBloch(mg.ctx, mg.w, mg.h, t);
+        }
+        if (!reduceMotion) window.requestAnimationFrame(frame);
+      }
+
+      frame(0);
+      window.addEventListener("resize", function () { frame(0); }, { passive: true });
+    })();
+
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").catch(function(){});
+    }
+  </script>
 </body>
 </html>
